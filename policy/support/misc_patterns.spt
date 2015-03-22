@@ -24,9 +24,6 @@ define(`domain_auto_transition_pattern',`
 	type_transition $1 $2:process $3;
 ')
 
-# compatibility:
-define(`domain_auto_trans',`domain_auto_transition_pattern($*)')
-
 define(`domtrans_pattern',`
 	domain_auto_transition_pattern($1,$2,$3)
 

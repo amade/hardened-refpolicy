@@ -266,7 +266,7 @@ files_kernel_modules_filetrans(update_modules_t, modules_conf_t, file)
 files_etc_filetrans(update_modules_t, modules_conf_t, file)
 
 # transition to depmod
-domain_auto_trans(update_modules_t, depmod_exec_t, depmod_t)
+domain_auto_transition_pattern(update_modules_t, depmod_exec_t, depmod_t)
 allow update_modules_t depmod_t:fd use;
 allow depmod_t update_modules_t:fd use;
 allow depmod_t update_modules_t:fifo_file rw_file_perms;
