@@ -447,9 +447,6 @@ term_setattr_console(xdm_t)
 term_use_unallocated_ttys(xdm_t)
 term_setattr_unallocated_ttys(xdm_t)
 
-auth_domtrans_pam_console(xdm_t)
-auth_manage_pam_pid(xdm_t)
-auth_manage_pam_console_data(xdm_t)
 auth_rw_faillog(xdm_t)
 auth_write_login_records(xdm_t)
 
@@ -773,10 +770,6 @@ tunable_policy(`!xserver_object_manager',`
 
 optional_policy(`
 	apm_stream_connect(xserver_t)
-')
-
-optional_policy(`
-	auth_search_pam_console_data(xserver_t)
 ')
 
 optional_policy(`

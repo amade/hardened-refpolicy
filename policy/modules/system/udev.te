@@ -140,8 +140,6 @@ selinux_compute_create_context(udev_t)
 selinux_compute_relabel_context(udev_t)
 selinux_compute_user_contexts(udev_t)
 
-auth_read_pam_console_data(udev_t)
-auth_domtrans_pam_console(udev_t)
 auth_use_nsswitch(udev_t)
 
 init_read_utmp(udev_t)

@@ -182,7 +182,6 @@ term_setattr_unallocated_ttys(hald_t)
 term_use_unallocated_ttys(hald_t)
 
 auth_use_nsswitch(hald_t)
-auth_read_pam_console_data(hald_t)
 
 fstools_getattr_swap_files(hald_t)
 

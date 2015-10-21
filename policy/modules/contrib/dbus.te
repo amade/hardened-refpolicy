@@ -121,7 +121,6 @@ selinux_compute_user_contexts(system_dbusd_t)
 term_dontaudit_use_console(system_dbusd_t)
 
 auth_use_nsswitch(system_dbusd_t)
-auth_read_pam_console_data(system_dbusd_t)
 
 init_use_fds(system_dbusd_t)
 init_use_script_ptys(system_dbusd_t)
@@ -227,8 +226,6 @@ selinux_compute_access_vector(session_bus_type)
 selinux_compute_create_context(session_bus_type)
 selinux_compute_relabel_context(session_bus_type)
 selinux_compute_user_contexts(session_bus_type)
-
-auth_read_pam_console_data(session_bus_type)
 
 logging_send_audit_msgs(session_bus_type)
 logging_send_syslog_msg(session_bus_type)

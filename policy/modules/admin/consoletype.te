@@ -66,10 +66,6 @@ optional_policy(`
 ')
 
 optional_policy(`
-	auth_read_pam_pid(consoletype_t)
-')
-
-optional_policy(`
 	cron_read_pipes(consoletype_t)
 	cron_use_system_job_fds(consoletype_t)
 ')

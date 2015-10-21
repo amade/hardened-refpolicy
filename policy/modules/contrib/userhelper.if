@@ -62,8 +62,6 @@ template(`userhelper_role_template',`
 	allow $3 $1_consolehelper_t:process { ptrace signal_perms };
 	ps_process_pattern($3, $1_consolehelper_t)
 
-	auth_use_pam($1_consolehelper_t)
-
 	optional_policy(`
 		dbus_connect_all_session_bus($1_consolehelper_t)
 

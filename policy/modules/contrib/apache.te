@@ -17,13 +17,6 @@ gen_tunable(allow_httpd_anon_write, false)
 
 ## <desc>
 ##	<p>
-##	Determine whether httpd can use mod_auth_pam.
-##	</p>
-## </desc>
-gen_tunable(allow_httpd_mod_auth_pam, false)
-
-## <desc>
-##	<p>
 ##	Determine whether httpd can use built in scripting.
 ##	</p>
 ## </desc>
@@ -523,14 +516,6 @@ miscfiles_read_tetex_data(httpd_t)
 seutil_dontaudit_search_config(httpd_t)
 
 userdom_use_unpriv_users_fds(httpd_t)
-
-ifdef(`TODO',`
-	tunable_policy(`allow_httpd_mod_auth_pam',`
-		auth_domtrans_chk_passwd(httpd_t)
-
-		logging_send_audit_msgs(httpd_t)
-	')
-')
 
 ifdef(`hide_broken_symptoms',`
 	libs_exec_lib_files(httpd_t)

@@ -34,8 +34,6 @@ mls_file_write_all_levels(vlock_t)
 
 selinux_dontaudit_getattr_fs(vlock_t)
 
-auth_use_pam(vlock_t)
-
 init_dontaudit_rw_utmp(vlock_t)
 
 miscfiles_read_localization(vlock_t)

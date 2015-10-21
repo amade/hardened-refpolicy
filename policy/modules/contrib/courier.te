@@ -199,13 +199,4 @@ ifdef(`distro_gentoo',`
 
 	# Startup of courier-imapd creates /var/run/imapd.pid.lock and imapd.lock (bug 534030)
 	files_pid_filetrans(courier_tcpd_t, courier_var_run_t, file)
-
-	########################################
-	#
-	# Courier authdaemon policy
-	#
-
-	# Grant authdaemon getattr rights on security_t so that it can check if SELinux is enabled (needed through pam support) (bug 534030)
-	# Handled through pam use
-	auth_use_pam(courier_authdaemon_t)
 ')

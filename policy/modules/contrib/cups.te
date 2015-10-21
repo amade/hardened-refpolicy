@@ -240,7 +240,6 @@ init_exec_script_files(cupsd_t)
 init_read_utmp(cupsd_t)
 
 auth_domtrans_chk_passwd(cupsd_t)
-auth_dontaudit_read_pam_pid(cupsd_t)
 auth_rw_faillog(cupsd_t)
 auth_use_nsswitch(cupsd_t)
 

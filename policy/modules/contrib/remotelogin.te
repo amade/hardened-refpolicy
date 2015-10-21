@@ -42,8 +42,6 @@ term_relabel_all_ptys(remote_login_t)
 term_use_all_ptys(remote_login_t)
 term_setattr_all_ptys(remote_login_t)
 
-auth_manage_pam_console_data(remote_login_t)
-auth_domtrans_pam_console(remote_login_t)
 auth_rw_login_records(remote_login_t)
 auth_rw_faillog(remote_login_t)
 

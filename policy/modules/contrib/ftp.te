@@ -239,7 +239,6 @@ fs_search_auto_mountpoints(ftpd_t)
 fs_getattr_all_fs(ftpd_t)
 fs_search_fusefs(ftpd_t)
 
-auth_use_pam(ftpd_t)
 auth_write_login_records(ftpd_t)
 auth_rw_faillog(ftpd_t)
 auth_manage_var_auth(ftpd_t)

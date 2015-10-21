@@ -133,8 +133,6 @@ files_read_etc_runtime_files(openvpn_t)
 fs_getattr_all_fs(openvpn_t)
 fs_search_auto_mountpoints(openvpn_t)
 
-auth_use_pam(openvpn_t)
-
 miscfiles_read_localization(openvpn_t)
 miscfiles_read_all_certs(openvpn_t)
 

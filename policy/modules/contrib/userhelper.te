@@ -54,9 +54,6 @@ files_search_mnt(consolehelper_type)
 
 term_list_ptys(consolehelper_type)
 
-auth_search_pam_console_data(consolehelper_type)
-auth_read_pam_pid(consolehelper_type)
-
 miscfiles_read_localization(consolehelper_type)
 miscfiles_read_fonts(consolehelper_type)
 
@@ -142,9 +139,7 @@ term_relabel_all_ptys(userhelper_type)
 term_use_all_ttys(userhelper_type)
 term_use_all_ptys(userhelper_type)
 
-auth_manage_pam_pid(userhelper_type)
 auth_manage_var_auth(userhelper_type)
-auth_search_pam_console_data(userhelper_type)
 
 init_use_fds(userhelper_type)
 init_manage_utmp(userhelper_type)

@@ -144,7 +144,6 @@ userdom_use_all_users_fds(mount_t)
 
 ifdef(`distro_redhat',`
 	optional_policy(`
-		auth_read_pam_console_data(mount_t)
 		# mount config by default sets fscontext=removable_t
 		fs_relabelfrom_dos_fs(mount_t)
 	')

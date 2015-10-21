@@ -573,8 +573,6 @@ template(`userdom_common_user_template',`
 
 	auth_use_nsswitch($1_t)
 	auth_read_login_records($1_t)
-	auth_search_pam_console_data($1_t)
-	auth_run_pam($1_t, $1_r)
 	auth_run_utempter($1_t, $1_r)
 
 	init_read_utmp($1_t)
@@ -936,7 +934,6 @@ template(`userdom_restricted_xwindows_user_template',`
 	#
 
 	auth_role($1_r, $1_t)
-	auth_search_pam_console_data($1_t)
 
 	dev_read_sound($1_t)
 	dev_write_sound($1_t)
