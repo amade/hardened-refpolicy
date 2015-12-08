@@ -39,8 +39,6 @@ interface(`dmesg_exec',`
 	can_exec($1, dmesg_exec_t)
 ')
 
-# This should be in an ifdef distro_gentoo but that is not allowed in an if file
-
 ########################################
 ## <summary>
 ##	Execute dmesg in the dmesg_t domain, and allow the calling role

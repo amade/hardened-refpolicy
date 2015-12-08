@@ -294,11 +294,6 @@ mls_process_write_all_levels(kernel_t)
 mls_file_write_all_levels(kernel_t)
 mls_file_read_all_levels(kernel_t)
 
-ifdef(`distro_redhat',`
-	# Bugzilla 222337
-	fs_rw_tmpfs_chr_files(kernel_t)
-')
-
 optional_policy(`
 	# loop devices
 	fstools_use_fds(kernel_t)
@@ -430,15 +425,13 @@ allow kern_unconfined unlabeled_t:association *;
 allow kern_unconfined unlabeled_t:packet *;
 allow kern_unconfined unlabeled_t:process ~{ transition dyntransition execmem execstack execheap };
 
-ifdef(`distro_gentoo',`
-	#####################################
-	#
-	# Local kernel_t policy
-	#
-	allow kernel_t unlabeled_t:dir search_dir_perms;
+#####################################
+#
+# Local kernel_t policy
+#
+allow kernel_t unlabeled_t:dir search_dir_perms;
 
-	# To support kdevtmpfs properly (its purpose is to manage the /dev tmpfs so grant it these rights)
-	# See also bug 535992
-	#dev_manage_all_dev_nodes(kernel_t)
-	dev_setattr_generic_chr_files(kernel_t)
-')
+# To support kdevtmpfs properly (its purpose is to manage the /dev tmpfs so grant it these rights)
+# See also bug 535992
+#dev_manage_all_dev_nodes(kernel_t)
+dev_setattr_generic_chr_files(kernel_t)

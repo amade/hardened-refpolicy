@@ -158,12 +158,9 @@ optional_policy(`
 	phpfpm_stream_connect(nginx_t)
 ')
 
-ifdef(`distro_gentoo',`
+# needs to be able to signal its children
+allow nginx_t self:process { signal sigchld };
 
-	# needs to be able to signal its children
-	allow nginx_t self:process { signal sigchld };
-
-	optional_policy(`
-		uwsgi_stream_connect(nginx_t)
-	')
+optional_policy(`
+	uwsgi_stream_connect(nginx_t)
 ')

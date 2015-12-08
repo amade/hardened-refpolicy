@@ -34,10 +34,8 @@ type wpa_cli_t;
 type wpa_cli_exec_t;
 init_system_domain(wpa_cli_t, wpa_cli_exec_t)
 
-ifdef(`distro_gentoo',`
-	type wpa_cli_var_run_t;
-	files_pid_file(wpa_cli_var_run_t)
-')
+type wpa_cli_var_run_t;
+files_pid_file(wpa_cli_var_run_t)
 
 ########################################
 #
@@ -368,7 +366,6 @@ miscfiles_read_localization(wpa_cli_t)
 
 term_dontaudit_use_console(wpa_cli_t)
 
-ifdef(`distro_gentoo',`
 	#
 	# NetworkManager_t policy
 	#
@@ -411,4 +408,3 @@ ifdef(`distro_gentoo',`
 	sysnet_domtrans_dhcpc(wpa_cli_t)
 
 	userdom_use_user_terminals(wpa_cli_t)
-')

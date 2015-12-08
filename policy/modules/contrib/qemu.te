@@ -56,25 +56,22 @@ optional_policy(`
 	allow unconfined_qemu_t qemu_exec_t:file execmod;
 ')
 
-ifdef(`distro_gentoo',`
+#################################
+#
+# Local policy
+#
+type qemu_var_run_t;
+files_pid_file(qemu_var_run_t)
 
-	#################################
-	#
-	# Local policy
-	#
-	type qemu_var_run_t;
-	files_pid_file(qemu_var_run_t)
+# VNC/GDB support
+allow qemu_t self:tcp_socket create_stream_socket_perms;
+allow qemu_t self:udp_socket create_socket_perms;
 
-	# VNC/GDB support
-	allow qemu_t self:tcp_socket create_stream_socket_perms;
-	allow qemu_t self:udp_socket create_socket_perms;
+# Network related socket
+allow qemu_t qemu_var_run_t:sock_file manage_sock_file_perms;
 
-	# Network related socket
-	allow qemu_t qemu_var_run_t:sock_file manage_sock_file_perms;
+files_pid_filetrans(qemu_t, qemu_var_run_t, sock_file)
 
-	files_pid_filetrans(qemu_t, qemu_var_run_t, sock_file)
-
-	optional_policy(`
-		vde_connect(qemu_t)
-	')
+optional_policy(`
+	vde_connect(qemu_t)
 ')

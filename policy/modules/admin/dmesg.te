@@ -57,13 +57,11 @@ optional_policy(`
 	udev_read_db(dmesg_t)
 ')
 
-ifdef(`distro_gentoo',`
-	#########################
-	#
-	# dmesg_t policy
-	#
-	dev_dontaudit_rw_generic_chr_files(dmesg_t) # early access when /dev/console is not relabeled by udev yet
+#########################
+#
+# dmesg_t policy
+#
+dev_dontaudit_rw_generic_chr_files(dmesg_t) # early access when /dev/console is not relabeled by udev yet
 
-	# Bug 529208
-	dev_read_kmsg(dmesg_t)
-')
+# Bug 529208
+dev_read_kmsg(dmesg_t)

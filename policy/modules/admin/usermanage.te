@@ -170,16 +170,6 @@ logging_send_syslog_msg(crack_t)
 
 userdom_dontaudit_search_user_home_dirs(crack_t)
 
-ifdef(`distro_debian',`
-	allow crack_t self:process getsched;
-	# the package cracklib-runtime on Debian contains a daily maintenance
-	# script /etc/cron.daily/cracklib-runtime, that calls
-	# update-cracklib and that calls crack_mkdict, which is a shell script.
-	corecmd_exec_shell(crack_t)
-	dev_search_sysfs(crack_t)
-	miscfiles_read_localization(crack_t)
-')
-
 optional_policy(`
 	cron_system_entry(crack_t, crack_exec_t)
 ')
@@ -532,12 +522,6 @@ optional_policy(`
 	mta_manage_spool(useradd_t)
 ')
 
-ifdef(`distro_redhat',`
-	optional_policy(`
-		unconfined_domain(useradd_t)
-	')
-')
-
 optional_policy(`
 	apache_manage_all_user_content(useradd_t)
 ')
@@ -566,7 +550,6 @@ optional_policy(`
 	rpm_rw_pipes(useradd_t)
 ')
 
-ifdef(`distro_gentoo',`
 	########################################
 	# groupadd_t
 
@@ -580,4 +563,3 @@ ifdef(`distro_gentoo',`
 	# fix bug #499036
 	# Upstream: http://oss.tresys.com/pipermail/refpolicy/2014-April/007058.html
 	allow useradd_t self:netlink_selinux_socket { create bind };
-')

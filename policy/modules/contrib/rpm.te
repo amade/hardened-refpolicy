@@ -356,13 +356,6 @@ seutil_run_semanage(rpm_script_t, rpm_roles)
 
 userdom_use_all_users_fds(rpm_script_t)
 
-ifdef(`distro_redhat',`
-	optional_policy(`
-		mta_send_mail(rpm_script_t)
-		mta_system_content(rpm_var_run_t)
-	')
-')
-
 tunable_policy(`allow_execmem',`
 	allow rpm_script_t self:process execmem;
 ')
@@ -413,8 +406,6 @@ optional_policy(`
 	usermanage_run_useradd(rpm_script_t, rpm_roles)
 ')
 
-ifdef(`distro_gentoo',`
-	# Moved out of files_relabel_non_auth_files as it cannot be used in tunables otherwise
-	seutil_relabelto_bin_policy(rpm_t)
-	seutil_relabelto_bin_policy(rpm_script_t)
-')
+# Moved out of files_relabel_non_auth_files as it cannot be used in tunables otherwise
+seutil_relabelto_bin_policy(rpm_t)
+seutil_relabelto_bin_policy(rpm_script_t)

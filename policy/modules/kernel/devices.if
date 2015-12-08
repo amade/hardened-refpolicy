@@ -4949,8 +4949,6 @@ interface(`dev_unconfined',`
 	typeattribute $1 devices_unconfined_type;
 ')
 
-# We cannot use ifdef distro_gentoo for interfaces
-
 ########################################
 ## <summary>
 ##	Dont audit attempts to read hardware state information

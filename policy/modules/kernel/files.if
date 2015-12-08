@@ -6514,14 +6514,6 @@ interface(`files_polyinstantiate_all',`
 
 	fs_mount_tmpfs($1)
 	fs_unmount_tmpfs($1)
-
-	ifdef(`distro_redhat',`
-		# namespace.init
-		files_search_tmp($1)
-		files_search_home($1)
-		corecmd_exec_bin($1)
-		seutil_domtrans_setfiles($1)
-	')
 ')
 
 ########################################
@@ -6541,8 +6533,6 @@ interface(`files_unconfined',`
 
 	typeattribute $1 files_unconfined_type;
 ')
-
-# should be in an ifdef distro_gentoo but cannot do so for interfaces
 
 ########################################
 ## <summary>

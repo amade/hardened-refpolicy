@@ -59,12 +59,7 @@ interface(`qmail_domtrans_inject',`
 
 	domtrans_pattern($1, qmail_inject_exec_t, qmail_inject_t)
 
-	ifdef(`distro_debian',`
-		files_search_usr($1)
-		corecmd_search_bin($1)
-	',`
-		files_search_var($1)
-	')
+	files_search_var($1)
 ')
 
 ########################################
@@ -84,12 +79,7 @@ interface(`qmail_domtrans_queue',`
 
 	domtrans_pattern($1, qmail_queue_exec_t, qmail_queue_t)
 
-	ifdef(`distro_debian',`
-		files_search_usr($1)
-		corecmd_search_bin($1)
-	',`
-		files_search_var($1)
-	')
+	files_search_var($1)
 ')
 
 ########################################
@@ -112,10 +102,6 @@ interface(`qmail_read_config',`
 	allow $1 qmail_etc_t:dir list_dir_perms;
 	allow $1 qmail_etc_t:file read_file_perms;
 	allow $1 qmail_etc_t:lnk_file read_lnk_file_perms;
-
-	ifdef(`distro_debian',`
-		files_search_etc($1)
-	')
 ')
 
 ########################################

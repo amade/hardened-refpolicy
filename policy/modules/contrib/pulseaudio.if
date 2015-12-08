@@ -347,8 +347,6 @@ interface(`pulseaudio_tmpfs_content',`
 	typeattribute $1 pulseaudio_tmpfsfile;
 ')
 
-# Below are Gentoo specifics but ifdef distro_gentoo cannot be used in interfaces
-
 ########################################
 ## <summary>
 ##	Mark the specified domain as a PulseAudio client domain

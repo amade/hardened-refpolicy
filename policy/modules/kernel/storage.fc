@@ -42,9 +42,6 @@
 /dev/ram.*		-b	gen_context(system_u:object_r:fixed_disk_device_t,mls_systemhigh)
 /dev/(raw/)?rawctl	-c	gen_context(system_u:object_r:fixed_disk_device_t,mls_systemhigh)
 /dev/rd.*		-b	gen_context(system_u:object_r:fixed_disk_device_t,mls_systemhigh)
-ifdef(`distro_redhat', `
-/dev/root		-b	gen_context(system_u:object_r:fixed_disk_device_t,mls_systemhigh)
-')
 /dev/s(cd|r)[^/]*	-b	gen_context(system_u:object_r:removable_device_t,s0)
 /dev/sbpcd.*		-b	gen_context(system_u:object_r:removable_device_t,s0)
 /dev/sg[0-9]+		-c	gen_context(system_u:object_r:scsi_generic_device_t,s0)

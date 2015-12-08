@@ -606,7 +606,6 @@ optional_policy(`
 	xserver_use_user_fonts(mozilla_plugin_config_t)
 ')
 
-ifdef(`distro_gentoo',`
 ## <desc>
 ##	<p>
 ##	Determine whether mozilla firefox can bind TCP sockets to all
@@ -765,4 +764,3 @@ gen_tunable(mozilla_plugin_connect_all_unreserved, false)
 	optional_policy(`
 		gnome_dbus_chat_gconfd(mozilla_t)
 	')
-')

@@ -121,13 +121,11 @@ files_type(user_cron_spool_t)
 ubac_constrained(user_cron_spool_t)
 mta_system_content(user_cron_spool_t)
 
-ifdef(`distro_gentoo',`
-	# Logging for atd jobs
-	domain_interactive_fd(cronjob_t)
-	domain_interactive_fd(system_cronjob_t)
+# Logging for atd jobs
+domain_interactive_fd(cronjob_t)
+domain_interactive_fd(system_cronjob_t)
 
-	logging_syslog_managed_log_file(cron_log_t, "cron.log")
-')
+logging_syslog_managed_log_file(cron_log_t, "cron.log")
 
 ifdef(`enable_mcs',`
 	init_ranged_daemon_domain(crond_t, crond_exec_t, s0 - mcs_systemhigh)
@@ -327,20 +325,6 @@ tunable_policy(`cron_userdomain_transition',`
 	allow crond_t cronjob_t:key manage_key_perms;
 ')
 
-ifdef(`distro_debian',`
-	allow crond_t self:process setrlimit;
-
-	optional_policy(`
-		logwatch_search_cache_dir(crond_t)
-	')
-')
-
-ifdef(`distro_redhat',`
-	optional_policy(`
-		rpm_manage_log(crond_t)
-	')
-')
-
 tunable_policy(`allow_polyinstantiation',`
 	files_polyinstantiate_all(crond_t)
 ')
@@ -521,12 +505,6 @@ logging_send_syslog_msg(system_cronjob_t)
 miscfiles_read_localization(system_cronjob_t)
 
 seutil_read_config(system_cronjob_t)
-
-ifdef(`distro_redhat',`
-	optional_policy(`
-		rpm_manage_log(system_cronjob_t)
-	')
-')
 
 tunable_policy(`cron_can_relabel',`
 	seutil_domtrans_setfiles(system_cronjob_t)

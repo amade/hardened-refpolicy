@@ -259,7 +259,6 @@ optional_policy(`
 	unconfined_signull(pulseaudio_client)
 ')
 
-ifdef(`distro_gentoo',`
 	type pulseaudio_xdg_config_t;
 	xdg_config_home_content(pulseaudio_xdg_config_t)
 
@@ -277,4 +276,3 @@ ifdef(`distro_gentoo',`
 	manage_lnk_files_pattern(pulseaudio_client, pulseaudio_xdg_config_t, pulseaudio_xdg_config_t)
 	manage_dirs_pattern(pulseaudio_client, pulseaudio_xdg_config_t, pulseaudio_xdg_config_t)
 	xdg_config_home_filetrans(pulseaudio_client, pulseaudio_xdg_config_t, dir, "pulse")
-')

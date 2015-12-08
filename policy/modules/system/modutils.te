@@ -74,12 +74,6 @@ userdom_use_user_terminals(depmod_t)
 files_list_home(depmod_t)
 userdom_read_user_home_content_files(depmod_t)
 
-ifdef(`distro_ubuntu',`
-	optional_policy(`
-		unconfined_domain(depmod_t)
-	')
-')
-
 tunable_policy(`use_nfs_home_dirs',`
 	fs_read_nfs_files(depmod_t)
 ')
@@ -307,47 +301,37 @@ modutils_run_insmod(update_modules_t, update_modules_roles)
 userdom_use_user_terminals(update_modules_t)
 userdom_dontaudit_search_user_home_dirs(update_modules_t)
 
-ifdef(`distro_gentoo',`
-	kernel_list_unlabeled(update_modules_t) # /var
+kernel_list_unlabeled(update_modules_t) # /var
 
-	files_search_pids(update_modules_t)
-	files_getattr_usr_src_files(update_modules_t)
+files_search_pids(update_modules_t)
+files_getattr_usr_src_files(update_modules_t)
 
-	# update-modules on Gentoo throws errors when run because it
-	# sources /etc/init.d/functions.sh, which always scans
-	# /var/lib/init.d to set SOFTLEVEL environment var.
-	# This is never used by update-modules.
-	files_dontaudit_search_var_lib(update_modules_t)
-	init_dontaudit_read_script_status_files(update_modules_t)
+# update-modules on Gentoo throws errors when run because it
+# sources /etc/init.d/functions.sh, which always scans
+# /var/lib/init.d to set SOFTLEVEL environment var.
+# This is never used by update-modules.
+files_dontaudit_search_var_lib(update_modules_t)
+init_dontaudit_read_script_status_files(update_modules_t)
 
-	optional_policy(`
-		consoletype_exec(update_modules_t)
-	')
+optional_policy(`
+	consoletype_exec(update_modules_t)
 ')
 
-ifdef(`distro_ubuntu',`
-	optional_policy(`
-		unconfined_domain(update_modules_t)
-	')
-')
+############################
+#
+# insmod_t 
+#
 
-ifdef(`distro_gentoo',`
-	############################
-	#
-	# insmod_t 
-	#
+# During "make modules_install" insmod removes old/previous deps
+delete_files_pattern(insmod_t, modules_object_t, modules_dep_t)
+# During "make modules_install" temp files created by admin
+# that invoked the command are later used by kmod.
+userdom_manage_user_tmp_files(insmod_t)
+userdom_manage_user_tmp_dirs(insmod_t)
 
-	# During "make modules_install" insmod removes old/previous deps
-	delete_files_pattern(insmod_t, modules_object_t, modules_dep_t)
-	# During "make modules_install" temp files created by admin
-	# that invoked the command are later used by kmod.
-	userdom_manage_user_tmp_files(insmod_t)
-	userdom_manage_user_tmp_dirs(insmod_t)
+# Needed to support signed kernel modules (to find key in modsign_keyring)
+kernel_search_key(insmod_t)
 
-	# Needed to support signed kernel modules (to find key in modsign_keyring)
-	kernel_search_key(insmod_t)
-
-	files_list_src(insmod_t)
-	files_manage_src_files(insmod_t)
-	files_manage_kernel_modules(insmod_t)
-')
+files_list_src(insmod_t)
+files_manage_src_files(insmod_t)
+files_manage_kernel_modules(insmod_t)

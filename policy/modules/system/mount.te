@@ -142,19 +142,6 @@ seutil_read_config(mount_t)
 
 userdom_use_all_users_fds(mount_t)
 
-ifdef(`distro_redhat',`
-	optional_policy(`
-		# mount config by default sets fscontext=removable_t
-		fs_relabelfrom_dos_fs(mount_t)
-	')
-')
-
-ifdef(`distro_ubuntu',`
-	optional_policy(`
-		unconfined_domain(mount_t)
-	')
-')
-
 tunable_policy(`allow_mount_anyfile',`
 	files_list_non_auth_dirs(mount_t)
 	files_read_non_auth_files(mount_t)
@@ -229,15 +216,14 @@ optional_policy(`
 	unconfined_domain(unconfined_mount_t)
 ')
 
-ifdef(`distro_gentoo',`
-	#########################################
-	#
-	# Mount local policy
-	#
+#########################################
+#
+# Mount local policy
+#
 
-	kernel_setsched(mount_t)
+kernel_setsched(mount_t)
 
-	files_relabel_all_file_type_fs(mount_t)
+files_relabel_all_file_type_fs(mount_t)
 
-	selinux_get_fs_mount(mount_t)
-')
+selinux_get_fs_mount(mount_t)
+

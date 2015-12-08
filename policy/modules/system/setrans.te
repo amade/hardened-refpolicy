@@ -20,10 +20,6 @@ type setrans_var_run_t;
 files_pid_file(setrans_var_run_t)
 mls_trusted_object(setrans_var_run_t)
 
-ifdef(`distro_debian',`
-	init_daemon_pid_file(setrans_var_run_t, dir, "setrans")
-')
-
 ifdef(`enable_mcs',`
 	init_ranged_daemon_domain(setrans_t, setrans_exec_t, s0 - mcs_systemhigh)
 ')

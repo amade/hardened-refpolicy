@@ -324,12 +324,10 @@ miscfiles_read_localization(gpg_pinentry_t)
 
 userdom_use_user_terminals(gpg_pinentry_t)
 
-ifdef(`distro_gentoo',`
-	optional_policy(`
-		mutt_read_home_files(gpg_t)
-		mutt_read_tmp_files(gpg_t)
-		mutt_rw_tmp_files(gpg_t)
-	')
+optional_policy(`
+	mutt_read_home_files(gpg_t)
+	mutt_read_tmp_files(gpg_t)
+	mutt_rw_tmp_files(gpg_t)
 ')
 
 tunable_policy(`use_nfs_home_dirs',`
@@ -353,11 +351,9 @@ optional_policy(`
 	xserver_user_x_domain_template(gpg_pinentry, gpg_pinentry_t, gpg_pinentry_tmpfs_t)
 ')
 
-ifdef(`distro_gentoo',`
-	#########################################
-	#
-	# gpg_pinentry_t policy
-	#
+#########################################
+#
+# gpg_pinentry_t policy
+#
 
-	xdg_read_data_home_files(gpg_pinentry_t)
-')
+xdg_read_data_home_files(gpg_pinentry_t)

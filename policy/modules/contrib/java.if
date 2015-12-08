@@ -50,14 +50,12 @@ interface(`java_role',`
 	allow java_t $2:unix_stream_socket { read write };
 	allow java_t $2:tcp_socket { read write };
 
-	ifdef(`distro_gentoo',`
-		gen_require(`
-			type java_home_t;
-		')
-	
-		manage_files_pattern($2, java_home_t, java_home_t)
-		manage_dirs_pattern($2, java_home_t, java_home_t)
+	gen_require(`
+		type java_home_t;
 	')
+	
+	manage_files_pattern($2, java_home_t, java_home_t)
+	manage_dirs_pattern($2, java_home_t, java_home_t)
 ')
 
 #######################################
@@ -153,10 +151,8 @@ template(`java_domtrans',`
 	corecmd_search_bin($1)
 	domtrans_pattern($1, java_exec_t, java_t)
 
-	ifdef(`distro_gentoo',`
-		# /usr/bin/java is a symlink
-		files_read_usr_symlinks($1)
-	')
+	# /usr/bin/java is a symlink
+	files_read_usr_symlinks($1)
 ')
 
 ########################################

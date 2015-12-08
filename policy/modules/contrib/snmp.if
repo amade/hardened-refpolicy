@@ -194,8 +194,6 @@ interface(`snmp_admin',`
 	admin_pattern($1, snmpd_var_run_t)
 ')
 
-# Gentoo stuff but cannot use ifdef distro_gentoo
-
 ########################################
 ## <summary>
 ##	Append to the snmp variable lib data

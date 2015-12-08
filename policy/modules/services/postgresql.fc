@@ -27,10 +27,6 @@
 /usr/lib/postgresql(-.*)?/(.*/)?bin/postgres		--	gen_context(system_u:object_r:postgresql_exec_t,s0)
 /usr/lib/postgresql(-.*)?/(.*/)?bin/postmaster		-l	gen_context(system_u:object_r:postgresql_exec_t,s0)
 
-ifdef(`distro_redhat', `
-/usr/share/jonas/pgsql(/.*)?		gen_context(system_u:object_r:postgresql_db_t,s0)
-')
-
 #
 # /var
 #
@@ -47,15 +43,9 @@ ifdef(`distro_redhat', `
 /var/log/postgresql(/.*)?		gen_context(system_u:object_r:postgresql_log_t,s0)
 /var/log/sepostgresql\.log.*	--	gen_context(system_u:object_r:postgresql_log_t,s0)
 
-ifdef(`distro_redhat', `
-/var/log/rhdb/rhdb(/.*)?		gen_context(system_u:object_r:postgresql_log_t,s0)
-')
-
 /var/run/postgresql(/.*)?		gen_context(system_u:object_r:postgresql_var_run_t,s0)
 
 /var/run/postmaster.*			gen_context(system_u:object_r:postgresql_var_run_t,s0)
 
-ifdef(`distro_gentoo',`
 /usr/lib/postgresql-.*/bin/.*	--	gen_context(system_u:object_r:postgresql_exec_t,s0)
-')
 

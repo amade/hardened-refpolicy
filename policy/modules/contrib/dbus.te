@@ -138,10 +138,8 @@ seutil_read_default_contexts(system_dbusd_t)
 userdom_dontaudit_use_unpriv_user_fds(system_dbusd_t)
 userdom_dontaudit_search_user_home_dirs(system_dbusd_t)
 
-ifdef(`distro_gentoo',`
-	optional_policy(`
-		cpufreqselector_dbus_chat(system_dbusd_t)
-	')
+optional_policy(`
+	cpufreqselector_dbus_chat(system_dbusd_t)
 ')
 
 optional_policy(`
@@ -237,10 +235,8 @@ seutil_read_default_contexts(session_bus_type)
 
 term_use_all_terms(session_bus_type)
 
-ifdef(`distro_gentoo',`
-	optional_policy(`
-		hal_dbus_chat(session_bus_type)
-	')
+optional_policy(`
+	hal_dbus_chat(session_bus_type)
 ')
 
 optional_policy(`

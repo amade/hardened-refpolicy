@@ -206,10 +206,8 @@ interface(`portage_compile_domain',`
 	')
 	') dnl end TODO
 
-	ifdef(`distro_gentoo',`
-		# Fix bug 496328
-		fs_getattr_tmpfs($1)
-	')
+	# Fix bug 496328
+	fs_getattr_tmpfs($1)
 ')
 
 ########################################

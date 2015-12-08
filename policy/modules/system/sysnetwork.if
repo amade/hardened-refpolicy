@@ -348,16 +348,6 @@ interface(`sysnet_read_config',`
 	files_search_etc($1)
 	allow $1 net_conf_t:file read_file_perms;
 
-	ifdef(`distro_debian',`
-		files_search_pids($1)
-		allow $1 net_conf_t:dir list_dir_perms;
-		read_files_pattern($1, net_conf_t, net_conf_t)
-	')
-
-	ifdef(`distro_redhat',`
-		allow $1 net_conf_t:dir list_dir_perms;
-		read_files_pattern($1, net_conf_t, net_conf_t)
-	')
 ')
 
 #######################################
@@ -457,14 +447,6 @@ interface(`sysnet_manage_config',`
 
 	allow $1 net_conf_t:file manage_file_perms;
 
-	ifdef(`distro_debian',`
-		files_search_pids($1)
-		manage_files_pattern($1, net_conf_t, net_conf_t)
-	')
-
-	ifdef(`distro_redhat',`
-		manage_files_pattern($1, net_conf_t, net_conf_t)
-	')
 ')
 
 #######################################
@@ -796,8 +778,6 @@ interface(`sysnet_use_portmap',`
 
 	sysnet_read_config($1)
 ')
-
-# This should be after an ifdef distro_gentoo but that is not allowed in an if file
 
 ########################################
 ## <summary>

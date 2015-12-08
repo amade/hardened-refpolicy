@@ -168,42 +168,40 @@ optional_policy(`
 	mozilla_domtrans(thunderbird_t)
 ')
 
-ifdef(`distro_gentoo',`
-	type thunderbird_xdg_cache_home_t;
-	xdg_cache_home_content(thunderbird_xdg_cache_home_t)
+type thunderbird_xdg_cache_home_t;
+xdg_cache_home_content(thunderbird_xdg_cache_home_t)
 
-	type thunderbird_tmp_t;
-	userdom_user_tmp_file(thunderbird_tmp_t)
+type thunderbird_tmp_t;
+userdom_user_tmp_file(thunderbird_tmp_t)
 
-	################################
-	#
-	# Thunderbird local policy
-	#
+################################
+#
+# Thunderbird local policy
+#
 
-	# thunderbird-bin to execute stuff in /opt/thunderbird/
-	can_exec(thunderbird_t, thunderbird_exec_t)
+# thunderbird-bin to execute stuff in /opt/thunderbird/
+can_exec(thunderbird_t, thunderbird_exec_t)
 
-	manage_dirs_pattern(thunderbird_t, thunderbird_tmp_t, thunderbird_tmp_t)
-	manage_files_pattern(thunderbird_t, thunderbird_tmp_t, thunderbird_tmp_t)
-	files_tmp_filetrans(thunderbird_t, thunderbird_tmp_t, { dir file })
+manage_dirs_pattern(thunderbird_t, thunderbird_tmp_t, thunderbird_tmp_t)
+manage_files_pattern(thunderbird_t, thunderbird_tmp_t, thunderbird_tmp_t)
+files_tmp_filetrans(thunderbird_t, thunderbird_tmp_t, { dir file })
 
-	manage_files_pattern(thunderbird_t, thunderbird_xdg_cache_home_t, thunderbird_xdg_cache_home_t)
-	manage_dirs_pattern(thunderbird_t, thunderbird_xdg_cache_home_t, thunderbird_xdg_cache_home_t)
-	xdg_cache_home_filetrans(thunderbird_t, thunderbird_xdg_cache_home_t, dir)
+manage_files_pattern(thunderbird_t, thunderbird_xdg_cache_home_t, thunderbird_xdg_cache_home_t)
+manage_dirs_pattern(thunderbird_t, thunderbird_xdg_cache_home_t, thunderbird_xdg_cache_home_t)
+xdg_cache_home_filetrans(thunderbird_t, thunderbird_xdg_cache_home_t, dir)
 
-	# File preview apps for instance
-	corecmd_exec_bin(thunderbird_t)
+# File preview apps for instance
+corecmd_exec_bin(thunderbird_t)
 
-	dev_read_sysfs(thunderbird_t)
-	dev_rw_dri(thunderbird_t)
+dev_read_sysfs(thunderbird_t)
+dev_rw_dri(thunderbird_t)
 
-	userdom_use_user_ptys(thunderbird_t)
-	# User content access
-	userdom_user_content_access_template(thunderbird, thunderbird_t)
+userdom_use_user_ptys(thunderbird_t)
+# User content access
+userdom_user_content_access_template(thunderbird, thunderbird_t)
 
-	xdg_read_data_home_files(thunderbird_t)
+xdg_read_data_home_files(thunderbird_t)
 
-	optional_policy(`
-		pulseaudio_client_domain(thunderbird_t, thunderbird_tmpfs_t)
-	')
+optional_policy(`
+	pulseaudio_client_domain(thunderbird_t, thunderbird_tmpfs_t)
 ')

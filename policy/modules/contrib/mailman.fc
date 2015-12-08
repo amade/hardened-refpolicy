@@ -28,7 +28,6 @@
 
 /usr/share/doc/mailman.*/mm-handler.*	--	gen_context(system_u:object_r:mailman_mail_exec_t,s0)
 
-ifdef(`distro_gentoo',`
 # Bug 536666
 # Seems like Fedora changes trickled in refpolicy and break due to /usr/lib/mailman/bin declaration in corecommands.fc
 /etc/mailman(/.*)?	gen_context(system_u:object_r:mailman_data_t,s0)
@@ -48,4 +47,3 @@ ifdef(`distro_gentoo',`
 
 /var/lib/mailman(/.*)?		gen_context(system_u:object_r:mailman_data_t,s0)
 /var/lib/mailman/archives(/.*)? gen_context(system_u:object_r:mailman_archive_t,s0)
-')

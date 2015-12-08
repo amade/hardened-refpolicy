@@ -109,12 +109,6 @@ seutil_dontaudit_use_newrole_fds(chkpwd_t)
 
 userdom_use_user_terminals(chkpwd_t)
 
-ifdef(`distro_ubuntu',`
-	optional_policy(`
-		unconfined_domain(chkpwd_t)
-	')
-')
-
 optional_policy(`
 	# apache leaks file descriptors
 	apache_dontaudit_rw_tcp_sockets(chkpwd_t)
@@ -157,12 +151,6 @@ miscfiles_read_localization(updpwd_t)
 
 userdom_use_user_terminals(updpwd_t)
 
-ifdef(`distro_ubuntu',`
-	optional_policy(`
-		unconfined_domain(updpwd_t)
-	')
-')
-
 ########################################
 #
 # Utempter local policy
@@ -192,12 +180,6 @@ logging_search_logs(utempter_t)
 userdom_use_user_terminals(utempter_t)
 # Allow utemper to write to /tmp/.xses-*
 userdom_write_user_tmp_files(utempter_t)
-
-ifdef(`distro_ubuntu',`
-	optional_policy(`
-		unconfined_domain(utempter_t)
-	')
-')
 
 optional_policy(`
 	nscd_use(utempter_t)

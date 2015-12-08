@@ -56,10 +56,6 @@ init_rw_script_pipes(consoletype_t)
 
 userdom_use_user_terminals(consoletype_t)
 
-ifdef(`distro_redhat',`
-	fs_rw_tmpfs_chr_files(consoletype_t)
-')
-
 optional_policy(`
 	apm_use_fds(consoletype_t)
 	apm_write_pipes(consoletype_t)

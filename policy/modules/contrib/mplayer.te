@@ -263,37 +263,35 @@ optional_policy(`
 	pulseaudio_run(mplayer_t, mplayer_roles)
 ')
 
-ifdef(`distro_gentoo',`
-	######################################
-	#
-	# Local mplayer_t policy
-	#
+######################################
+#
+# Local mplayer_t policy
+#
 
-	xdg_manage_videos_home(mplayer_t)
+xdg_manage_videos_home(mplayer_t)
 
-	tunable_policy(`mplayer_read_user_content',`
-		userdom_read_user_home_content_files(mplayer_t)
-		userdom_read_user_home_content_symlinks(mplayer_t)
-	')
+tunable_policy(`mplayer_read_user_content',`
+	userdom_read_user_home_content_files(mplayer_t)
+	userdom_read_user_home_content_symlinks(mplayer_t)
+')
 
-	tunable_policy(`mplayer_manage_user_content',`
-		userdom_manage_user_tmp_dirs(mplayer_t)
-		userdom_manage_user_tmp_files(mplayer_t)
-		userdom_user_home_dir_filetrans_user_home_content(mplayer_t, { dir file })
+tunable_policy(`mplayer_manage_user_content',`
+	userdom_manage_user_tmp_dirs(mplayer_t)
+	userdom_manage_user_tmp_files(mplayer_t)
+	userdom_user_home_dir_filetrans_user_home_content(mplayer_t, { dir file })
 
-		userdom_manage_user_home_content_dirs(mplayer_t)
-		userdom_manage_user_home_content_files(mplayer_t)
+	userdom_manage_user_home_content_dirs(mplayer_t)
+	userdom_manage_user_home_content_files(mplayer_t)
 
-		userdom_write_user_tmp_sockets(mplayer_t)
-	')
+	userdom_write_user_tmp_sockets(mplayer_t)
+')
 
+optional_policy(`
+	pulseaudio_client_domain(mplayer_t, mplayer_tmpfs_t)
+')
+
+ifdef(`use_alsa',`
 	optional_policy(`
-		pulseaudio_client_domain(mplayer_t, mplayer_tmpfs_t)
-	')
-
-	ifdef(`use_alsa',`
-		optional_policy(`
-			alsa_domain(mplayer_t, mplayer_tmpfs_t)
-		')
+		alsa_domain(mplayer_t, mplayer_tmpfs_t)
 	')
 ')

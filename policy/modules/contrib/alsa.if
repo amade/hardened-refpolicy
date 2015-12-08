@@ -119,10 +119,6 @@ interface(`alsa_read_rw_config',`
 	allow $1 alsa_etc_rw_t:dir list_dir_perms;
 	read_files_pattern($1, alsa_etc_rw_t, alsa_etc_rw_t)
 	read_lnk_files_pattern($1, alsa_etc_rw_t, alsa_etc_rw_t)
-
-	ifdef(`distro_debian',`
-		files_search_usr($1)
-	')
 ')
 
 ########################################
@@ -144,10 +140,6 @@ interface(`alsa_manage_rw_config',`
 	allow $1 alsa_etc_rw_t:dir list_dir_perms;
 	manage_files_pattern($1, alsa_etc_rw_t, alsa_etc_rw_t)
 	read_lnk_files_pattern($1, alsa_etc_rw_t, alsa_etc_rw_t)
-
-	ifdef(`distro_debian',`
-		files_search_usr($1)
-	')
 ')
 
 ########################################
@@ -256,10 +248,8 @@ interface(`alsa_read_lib',`
 	files_search_var_lib($1)
 	read_files_pattern($1, alsa_var_lib_t, alsa_var_lib_t)
 
-	ifdef(`distro_gentoo',`
-		# gentoo saves the files in /var/lib/alsa/oss/CardName
-		list_dirs_pattern($1, alsa_var_lib_t, alsa_var_lib_t)
-	')
+	# gentoo saves the files in /var/lib/alsa/oss/CardName
+	list_dirs_pattern($1, alsa_var_lib_t, alsa_var_lib_t)
 ')
 
 #########################################
@@ -280,13 +270,9 @@ interface(`alsa_write_lib',`
 	files_search_var_lib($1)
 	write_files_pattern($1, alsa_var_lib_t, alsa_var_lib_t)
 
-	ifdef(`distro_gentoo',`
-		# gentoo saves the files in /var/lib/alsa/oss/CardName
-		rw_dirs_pattern($1, alsa_var_lib_t, alsa_var_lib_t)
-	')
+	# gentoo saves the files in /var/lib/alsa/oss/CardName
+	rw_dirs_pattern($1, alsa_var_lib_t, alsa_var_lib_t)
 ')
-
-# Gentoo specific for now, but cannot use ifdef distro_gentoo in an interface
 
 # alsa_domain - see http://oss.tresys.com/pipermail/refpolicy/2014-March/007029.html
 #                   http://oss.tresys.com/pipermail/refpolicy/2014-April/007044.html

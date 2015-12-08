@@ -149,15 +149,13 @@ optional_policy(`
 	udev_read_db(slapd_t)
 ')
 
-ifdef(`distro_gentoo',`
-	init_daemon_pid_file(slapd_var_run_t, dir, "openldap")
+init_daemon_pid_file(slapd_var_run_t, dir, "openldap")
 
-	########################################
-	#
-	# Local slapd_t policy
-	#
-	allow slapd_t self:process signal;
-	allow slapd_t self:unix_stream_socket listen;
+########################################
+#
+# Local slapd_t policy
+#
+allow slapd_t self:process signal;
+allow slapd_t self:unix_stream_socket listen;
 
-	userdom_use_user_terminals(slapd_t)
-')
+userdom_use_user_terminals(slapd_t)

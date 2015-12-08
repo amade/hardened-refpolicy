@@ -65,10 +65,6 @@ HOME_DIR/((www)|(web)|(public_html))(/.*)?/logs(/.*)?	gen_context(system_u:objec
 /usr/sbin/suexec	--	gen_context(system_u:object_r:httpd_suexec_exec_t,s0)
 /usr/sbin/wigwam	--	gen_context(system_u:object_r:httpd_exec_t,s0)
 
-ifdef(`distro_suse',`
-/usr/sbin/httpd2-.*	--	gen_context(system_u:object_r:httpd_exec_t,s0)
-')
-
 /usr/share/doc/ghc/html(/.*)?	gen_context(system_u:object_r:httpd_sys_content_t,s0)
 /usr/share/drupal.*	gen_context(system_u:object_r:httpd_sys_content_t,s0)
 /usr/share/glpi(/.*)?	gen_context(system_u:object_r:httpd_sys_content_t,s0)
@@ -173,6 +169,4 @@ ifdef(`distro_suse',`
 /var/www/svn/conf(/.*)?	gen_context(system_u:object_r:httpd_sys_content_t,s0)
 /var/www/svn/hooks(/.*)?	gen_context(system_u:object_r:httpd_sys_script_exec_t,s0)
 
-ifdef(`distro_gentoo',`
 /usr/share/build-1/libtool	--	gen_context(system_u:object_r:bin_t,s0)
-')

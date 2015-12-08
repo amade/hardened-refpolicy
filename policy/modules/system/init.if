@@ -879,13 +879,11 @@ interface(`init_domtrans_script',`
 		range_transition $1 initrc_exec_t:process s0 - mls_systemhigh;
 	')
 
-	ifdef(`distro_gentoo',`
-		gen_require(`
-			type rc_exec_t;
-		')
-
-		domtrans_pattern($1, rc_exec_t, initrc_t)
+	gen_require(`
+		type rc_exec_t;
 	')
+
+	domtrans_pattern($1, rc_exec_t, initrc_t)
 ')
 
 ########################################
@@ -998,16 +996,8 @@ interface(`init_startstop_service',`
 	')
 
 	ifndef(`direct_sysadm_daemon',`
-		ifdef(`distro_gentoo',`
-			# for OpenRC
-			seutil_labeled_init_script_run_runinit($1, $2, $4)
-		',`
-			# rules for sysvinit / upstart
-			init_labeled_script_domtrans($1, $4)
-			domain_system_change_exemption($1)
-			role_transition $2 $4 system_r;
-			allow $2 system_r;
-		')
+		# for OpenRC
+		seutil_labeled_init_script_run_runinit($1, $2, $4)
 	')
 ')
 
@@ -1914,8 +1904,6 @@ interface(`init_udp_recvfrom_all_daemons',`
 	')
 	corenet_udp_recvfrom_labeled($1, daemon)
 ')
-
-# This should be behind an ifdef distro_gentoo but this is not allowed here
 
 #########################################
 ## <summary>

@@ -268,27 +268,25 @@ interface(`userdom_manage_home_role',`
 		fs_dontaudit_manage_cifs_files($2)
 	')
 
-	ifdef(`distro_gentoo',`
-		miscfiles_manage_user_certs($2)
-		miscfiles_relabel_user_certs($2)
+	miscfiles_manage_user_certs($2)
+	miscfiles_relabel_user_certs($2)
 
-		optional_policy(`
-			flash_manage_home($2)
-			flash_relabel_home($2)
-		')
+	optional_policy(`
+		flash_manage_home($2)
+		flash_relabel_home($2)
+	')
 
-		optional_policy(`
-			xdg_manage_all_cache_home($2)
-			xdg_manage_all_config_home($2)
-			xdg_manage_all_data_home($2)
-			xdg_manage_all_runtime_home($2)
-			xdg_manage_downloads_home($2)
-			xdg_manage_videos_home($2)
-			xdg_relabel_all_cache_home($2)
-			xdg_relabel_all_config_home($2)
-			xdg_relabel_all_data_home($2)
-			xdg_relabel_all_runtime_home($2)
-		')
+	optional_policy(`
+		xdg_manage_all_cache_home($2)
+		xdg_manage_all_config_home($2)
+		xdg_manage_all_data_home($2)
+		xdg_manage_all_runtime_home($2)
+		xdg_manage_downloads_home($2)
+		xdg_manage_videos_home($2)
+		xdg_relabel_all_cache_home($2)
+		xdg_relabel_all_config_home($2)
+		xdg_relabel_all_data_home($2)
+		xdg_relabel_all_runtime_home($2)
 	')
 ')
 
@@ -742,9 +740,7 @@ template(`userdom_common_user_template',`
 		virt_home_filetrans_virt_home($1_t, dir, "VirtualMachines")
 	')
 
-	ifdef(`distro_gentoo',`
-		domain_dontaudit_getsched_all_domains($1_t)
-	')
+	domain_dontaudit_getsched_all_domains($1_t)
 ')
 
 #######################################
@@ -1239,16 +1235,14 @@ template(`userdom_admin_user_template',`
 		userhelper_exec($1_t)
 	')
 
-	ifdef(`distro_gentoo',`
-		# Grant block_suspend capability2 to administrators, this annoys the heck out of me
-		allow $1_t self:capability2 { block_suspend };
-		# Allow admins to interact with kernel, for instance using lsusb command
-		allow $1_t self:netlink_kobject_uevent_socket create_socket_perms;
-		# Moved out of files_relabel_non_auth_files as it cannot be used in tunable_policy otherwise
-		seutil_relabelto_bin_policy($1_t)
-		# allow to manage chr_files in user_tmp (for initrd's)
-		userdom_manage_user_tmp_chr_files($1_t)
-	')
+	# Grant block_suspend capability2 to administrators, this annoys the heck out of me
+	allow $1_t self:capability2 { block_suspend };
+	# Allow admins to interact with kernel, for instance using lsusb command
+	allow $1_t self:netlink_kobject_uevent_socket create_socket_perms;
+	# Moved out of files_relabel_non_auth_files as it cannot be used in tunable_policy otherwise
+	seutil_relabelto_bin_policy($1_t)
+	# allow to manage chr_files in user_tmp (for initrd's)
+	userdom_manage_user_tmp_chr_files($1_t)
 ')
 
 ########################################
@@ -1340,10 +1334,8 @@ template(`userdom_security_admin_template',`
 		samhain_run($1, $2)
 	')
 
-	ifdef(`distro_gentoo',`
-		# Moved out of files_relabel_non_auth_files as it cannot be used in tunable_policy otherwise
-		seutil_relabelto_bin_policy($1)
-	')
+	# Moved out of files_relabel_non_auth_files as it cannot be used in tunable_policy otherwise
+	seutil_relabelto_bin_policy($1)
 ')
 
 ########################################
@@ -3497,8 +3489,6 @@ interface(`userdom_dbus_send_all_users',`
 
 	allow $1 userdomain:dbus send_msg;
 ')
-
-# Gentoo added stuff, but cannot use an ifdef distro_gentoo for this
 
 ########################################
 ## <summary>

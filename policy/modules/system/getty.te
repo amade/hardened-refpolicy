@@ -96,22 +96,9 @@ logging_send_syslog_msg(getty_t)
 
 miscfiles_read_localization(getty_t)
 
-ifdef(`distro_gentoo',`
-	# Gentoo default /etc/issue makes agetty
-	# do a DNS lookup for the hostname
-	sysnet_dns_name_resolve(getty_t)
-')
-
-ifdef(`distro_redhat',`
-	# getty requires sys_admin #209426
-	allow getty_t self:capability sys_admin;
-')
-
-ifdef(`distro_ubuntu',`
-	optional_policy(`
-		unconfined_domain(getty_t)
-	')
-')
+# Gentoo default /etc/issue makes agetty
+# do a DNS lookup for the hostname
+sysnet_dns_name_resolve(getty_t)
 
 tunable_policy(`console_login',`
 	# Support logging in from /dev/console

@@ -261,10 +261,6 @@ miscfiles_read_localization(ndc_t)
 
 userdom_use_user_terminals(ndc_t)
 
-ifdef(`distro_redhat',`
-	allow ndc_t named_conf_t:dir search_dir_perms;
-')
-
 optional_policy(`
 	ppp_dontaudit_use_fds(ndc_t)
 ')

@@ -21,18 +21,6 @@
 /dev/MAKEDEV			--	gen_context(system_u:object_r:bin_t,s0)
 
 #
-# /emul
-#
-ifdef(`distro_redhat',`
-/emul/ia32-linux/bin(/.*)?		gen_context(system_u:object_r:bin_t,s0)
-/emul/ia32-linux/sbin(/.*)?		gen_context(system_u:object_r:bin_t,s0)
-/emul/ia32-linux/usr(/.*)?/bin(/.*)?	gen_context(system_u:object_r:bin_t,s0)
-/emul/ia32-linux/usr(/.*)?/Bin(/.*)? 	gen_context(system_u:object_r:bin_t,s0)
-/emul/ia32-linux/usr(/.*)?/sbin(/.*)?	gen_context(system_u:object_r:bin_t,s0)
-/emul/ia32-linux/usr/libexec(/.*)?	gen_context(system_u:object_r:bin_t,s0)
-')
-
-#
 # /etc
 #
 /etc/acpi/actions(/.*)?			gen_context(system_u:object_r:bin_t,s0)
@@ -73,10 +61,6 @@ ifdef(`distro_redhat',`
 
 /etc/mcelog/.*-error-trigger	--	gen_context(system_u:object_r:bin_t,s0)
 /etc/mcelog/.*\.local		--	gen_context(system_u:object_r:bin_t,s0)
-
-ifdef(`distro_redhat',`
-/etc/mcelog/triggers(/.*)?		gen_context(system_u:object_r:bin_t,s0)
-')
 
 /etc/mgetty\+sendfax/new_fax	--	gen_context(system_u:object_r:bin_t,s0)
 
@@ -126,10 +110,6 @@ ifdef(`distro_redhat',`
 /etc/xen/qemu-ifup		--	gen_context(system_u:object_r:bin_t,s0)
 /etc/xen/scripts(/.*)?			gen_context(system_u:object_r:bin_t,s0)
 
-ifdef(`distro_debian',`
-/etc/mysql/debian-start		--	gen_context(system_u:object_r:bin_t,s0)
-')
-
 #
 # /lib
 #
@@ -142,9 +122,6 @@ ifdef(`distro_debian',`
 /lib/udev/scsi_id		--	gen_context(system_u:object_r:bin_t,s0)
 /lib/upstart(/.*)?			gen_context(system_u:object_r:bin_t,s0)
 
-ifdef(`distro_gentoo',`
-#/lib/dhcpcd/dhcpcd-run-hooks	--	gen_context(system_u:object_r:bin_t,s0)
-
 /lib/rcscripts/addons(/.*)?		gen_context(system_u:object_r:bin_t,s0)
 /lib/rcscripts/sh(/.*)?			gen_context(system_u:object_r:bin_t,s0)
 /lib/rcscripts/net\.modules\.d/helpers\.d/dhclient-.* -- gen_context(system_u:object_r:bin_t,s0)
@@ -152,7 +129,6 @@ ifdef(`distro_gentoo',`
 /lib/rc/bin/.*			--	gen_context(system_u:object_r:bin_t,s0)
 /lib/rc/sbin/.*			--	gen_context(system_u:object_r:bin_t,s0)
 /lib/rc/sh/.*			--	gen_context(system_u:object_r:bin_t,s0)
-')
 
 #
 # /sbin
@@ -178,11 +154,9 @@ ifdef(`distro_gentoo',`
 
 /opt/OpenPrinting-Gutenprint/cups/lib/filter(/.*)? gen_context(system_u:object_r:bin_t,s0)
 
-ifdef(`distro_gentoo',`
 /opt/RealPlayer/realplay(\.bin)?	gen_context(system_u:object_r:bin_t,s0)
 /opt/RealPlayer/postint(/.*)?		gen_context(system_u:object_r:bin_t,s0)
 /opt/vmware/workstation/lib/lib/wrapper-gtk24\.sh -- gen_context(system_u:object_r:bin_t,s0)
-')
 
 #
 # /usr
@@ -327,79 +301,8 @@ ifdef(`distro_gentoo',`
 
 /usr/X11R6/lib(64)?/X11/xkb/xkbcomp --	gen_context(system_u:object_r:bin_t,s0)
 
-ifdef(`distro_debian',`
-/usr/lib/ConsoleKit/.*		--	gen_context(system_u:object_r:bin_t,s0)
-/usr/lib/gdm3/.*		--	gen_context(system_u:object_r:bin_t,s0)
-/usr/lib/udisks/.*		--	gen_context(system_u:object_r:bin_t,s0)
-')
-
-ifdef(`distro_gentoo', `
 /usr/.*-.*-linux-gnu/gcc-bin/.*(/.*)?	gen_context(system_u:object_r:bin_t,s0)
 /usr/.*-.*-linux-gnu/binutils-bin(/.*)?	gen_context(system_u:object_r:bin_t,s0)
-')
-
-ifdef(`distro_redhat', `
-/etc/gdm/XKeepsCrashing[^/]*	--	gen_context(system_u:object_r:bin_t,s0)
-/etc/gdm/[^/]+			-d	gen_context(system_u:object_r:bin_t,s0)
-/etc/gdm/[^/]+/.*			gen_context(system_u:object_r:bin_t,s0)
-
-/usr/lib/.*/program(/.*)?		gen_context(system_u:object_r:bin_t,s0)
-/usr/lib/bluetooth(/.*)?	--	gen_context(system_u:object_r:bin_t,s0)
-/usr/lib/vmware-tools/(s)?bin32(/.*)?	gen_context(system_u:object_r:bin_t,s0)
-/usr/lib/vmware-tools/(s)?bin64(/.*)?	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/authconfig/authconfig-gtk\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/authconfig/authconfig-tui\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/authconfig/authconfig\.py --	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/clamav/clamd-gen	--	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/clamav/freshclam-sleep --	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/createrepo(/.*)?		gen_context(system_u:object_r:bin_t,s0)
-/usr/share/fedora-usermgmt/wrapper --	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/hplip/[^/]*		--	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/hwbrowser/hwbrowser --	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/pwlib/make/ptlib-config --	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/pydict/pydict\.py	--	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/rhn/rhn_applet/applet\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/rhn/rhn_applet/needed-packages\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/ssl/misc(/.*)?		gen_context(system_u:object_r:bin_t,s0)
-/usr/share/switchdesk/switchdesk-gui\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-date/system-config-date\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-selinux/polgen\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-selinux/system-config-selinux\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-display/system-config-display -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-httpd/system-config-httpd -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-keyboard/system-config-keyboard -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-language/system-config-language -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-lvm/system-config-lvm\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-mouse/system-config-mouse -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-netboot/system-config-netboot\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-netboot/pxeos\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-netboot/pxeboot\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-network(/netconfig)?/[^/]+\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-network/neat-control\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-nfs/nfs-export\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-nfs/system-config-nfs\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-printer/applet\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-rootpassword/system-config-rootpassword -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-samba/system-config-samba\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-securitylevel/system-config-securitylevel\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-services/gui\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-services/serviceconf\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-services/system-config-services -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-soundcard/system-config-soundcard -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-config-users/system-config-users -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/system-logviewer/system-logviewer\.py -- gen_context(system_u:object_r:bin_t,s0)
-/usr/share/texmf/web2c/mktexdir	--	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/texmf/web2c/mktexnam	--	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/texmf/web2c/mktexupd	--	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/texmf/texconfig/tcfmgr --	gen_context(system_u:object_r:bin_t,s0)
-')
-
-ifdef(`distro_suse', `
-/usr/lib/cron/run-crons		--	gen_context(system_u:object_r:bin_t,s0)
-/usr/lib/samba/classic/.*	--	gen_context(system_u:object_r:bin_t,s0)
-/usr/lib/ssh/.*			--	gen_context(system_u:object_r:bin_t,s0)
-/usr/share/apache2/[^/]*	--	gen_context(system_u:object_r:bin_t,s0)
-')
 
 #
 # /var
@@ -415,12 +318,6 @@ ifdef(`distro_suse', `
 /var/qmail/bin(/.*)?			gen_context(system_u:object_r:bin_t,s0)
 /var/qmail/rc			--	gen_context(system_u:object_r:bin_t,s0)
 
-ifdef(`distro_suse',`
-/var/lib/samba/bin/.+			gen_context(system_u:object_r:bin_t,s0)
-')
-
-ifdef(`distro_gentoo',`
 /usr/lib/python-exec/python-exec2	--	gen_context(system_u:object_r:bin_t,s0)
 /usr/lib/python-exec/python-exec2-c	--	gen_context(system_u:object_r:bin_t,s0)
 /usr/lib/python-exec/python.*/.*	--	gen_context(system_u:object_r:bin_t,s0)
-')

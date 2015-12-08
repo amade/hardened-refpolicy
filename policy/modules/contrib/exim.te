@@ -63,10 +63,6 @@ files_tmp_file(exim_tmp_t)
 type exim_var_run_t;
 files_pid_file(exim_var_run_t)
 
-ifdef(`distro_debian',`
-	init_daemon_pid_file(exim_var_run_t, dir, "exim4")
-')
-
 ########################################
 #
 # Local policy

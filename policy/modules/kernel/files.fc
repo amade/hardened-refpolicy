@@ -9,21 +9,6 @@
 /initrd\.img.*		-l	gen_context(system_u:object_r:boot_t,s0)
 /vmlinuz.*		-l	gen_context(system_u:object_r:boot_t,s0)
 
-ifdef(`distro_redhat',`
-/\.autofsck		--	gen_context(system_u:object_r:etc_runtime_t,s0)
-/\.autorelabel		--	gen_context(system_u:object_r:etc_runtime_t,s0)
-/\.suspended		--	gen_context(system_u:object_r:etc_runtime_t,s0)
-/fastboot 		--	gen_context(system_u:object_r:etc_runtime_t,s0)
-/forcefsck 		--	gen_context(system_u:object_r:etc_runtime_t,s0)
-/fsckoptions 		--	gen_context(system_u:object_r:etc_runtime_t,s0)
-/halt			--	gen_context(system_u:object_r:etc_runtime_t,s0)
-/poweroff		--	gen_context(system_u:object_r:etc_runtime_t,s0)
-')
-
-ifdef(`distro_suse',`
-/success		--	gen_context(system_u:object_r:etc_runtime_t,s0)
-')
-
 #
 # /boot
 #
@@ -72,20 +57,9 @@ ifdef(`distro_suse',`
 /etc/sysconfig/iptables\.save -- gen_context(system_u:object_r:etc_runtime_t,s0)
 /etc/sysconfig/firstboot --	gen_context(system_u:object_r:etc_runtime_t,s0)
 
-ifdef(`distro_gentoo', `
 /etc/profile\.env	--	gen_context(system_u:object_r:etc_runtime_t,s0)
 /etc/csh\.env		--	gen_context(system_u:object_r:etc_runtime_t,s0)
 /etc/env\.d(/.*)?		gen_context(system_u:object_r:etc_runtime_t,s0)
-')
-
-ifdef(`distro_redhat',`
-/etc/rhgb(/.*)?		-d	gen_context(system_u:object_r:mnt_t,s0)
-')
-
-ifdef(`distro_suse',`
-/etc/defkeymap\.map	--	gen_context(system_u:object_r:etc_runtime_t,s0)
-/etc/rc\.d/init\.d/\.depend.* -- gen_context(system_u:object_r:etc_runtime_t,s0)
-')
 
 #
 # HOME_ROOT
@@ -107,12 +81,6 @@ HOME_ROOT/lost\+found/.*	<<none>>
 # /lib(64)?
 #
 /lib/modules(/.*)?		gen_context(system_u:object_r:modules_object_t,s0)
-
-ifdef(`distro_debian',`
-# on Debian /lib/init/rw is a tmpfs used like /var/run but
-# before /var is mounted
-/lib/init/rw(/.*)?		gen_context(system_u:object_r:var_run_t,s0-mls_systemhigh)
-')
 
 #
 # /lost+found
@@ -223,13 +191,6 @@ ifdef(`distro_debian',`
 /usr/tmp		-d	gen_context(system_u:object_r:tmp_t,s0-mls_systemhigh)
 /usr/tmp/.*			<<none>>
 
-ifndef(`distro_redhat',`
-/usr/local/src(/.*)?		gen_context(system_u:object_r:src_t,s0)
-
-/usr/src(/.*)?			gen_context(system_u:object_r:src_t,s0)
-/usr/src/kernels/.+/lib(/.*)?	gen_context(system_u:object_r:usr_t,s0)
-')
-
 #
 # /var
 #
@@ -274,7 +235,3 @@ ifndef(`distro_redhat',`
 /var/tmp/systemd-private-[^/]+/tmp/.*	<<none>>
 /var/tmp/vi\.recover	-d	gen_context(system_u:object_r:tmp_t,s0)
 
-ifdef(`distro_debian',`
-/var/run/motd		--	gen_context(system_u:object_r:initrc_var_run_t,s0)
-/var/run/motd\.dynamic	--	gen_context(system_u:object_r:initrc_var_run_t,s0)
-')

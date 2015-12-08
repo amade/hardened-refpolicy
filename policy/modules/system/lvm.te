@@ -134,12 +134,6 @@ userdom_dontaudit_search_user_home_dirs(clvmd_t)
 lvm_domtrans(clvmd_t)
 lvm_read_config(clvmd_t)
 
-ifdef(`distro_redhat',`
-	optional_policy(`
-		unconfined_domain(clvmd_t)
-	')
-')
-
 optional_policy(`
 	ccs_stream_connect(clvmd_t)
 ')
@@ -304,15 +298,6 @@ seutil_sigchld_newrole(lvm_t)
 
 userdom_use_user_terminals(lvm_t)
 
-ifdef(`distro_redhat',`
-	# this is from the initrd:
-	kernel_rw_unlabeled_dirs(lvm_t)
-
-	optional_policy(`
-		unconfined_domain(lvm_t)
-	')
-')
-
 optional_policy(`
 	bootloader_rw_tmp_files(lvm_t)
 ')
@@ -355,7 +340,6 @@ optional_policy(`
 	xen_dontaudit_rw_unix_stream_sockets(lvm_t)
 ')
 
-ifdef(`distro_gentoo',`
 	#############################
 	#
 	# Local lvm policy
@@ -379,4 +363,3 @@ ifdef(`distro_gentoo',`
 	optional_policy(`
 		udev_read_pid_files(lvm_t)
 	')
-')

@@ -535,8 +535,6 @@ interface(`files_lib_filetrans_shared_lib',`
 	refpolicywarn(`$0($*) has been deprecated.')
 ')
 
-# This is gentoo specific but cannot use ifdef distro_gentoo here
-
 ########################################
 ## <summary>
 ##	Create an object in etc with a type transition to

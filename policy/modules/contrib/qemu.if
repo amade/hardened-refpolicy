@@ -375,8 +375,6 @@ interface(`qemu_entry_type',`
 	domain_entry_file($1, qemu_exec_t)
 ')
 
-# Gentoo specific but cannot use ifdef distro_gentoo here
-
 #######################################
 ## <summary>
 ##	Read/write to qemu socket files in /var/run

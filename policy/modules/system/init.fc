@@ -9,10 +9,8 @@
 
 /etc/X11/prefdm		--	gen_context(system_u:object_r:initrc_exec_t,s0)
 
-ifdef(`distro_gentoo',`
 /etc/vmware/init\.d/vmware --	gen_context(system_u:object_r:initrc_exec_t,s0)
 /etc/x11/startDM\.sh	--	gen_context(system_u:object_r:initrc_exec_t,s0)
-')
 
 #
 # /dev
@@ -24,9 +22,7 @@ ifdef(`distro_gentoo',`
 #
 /lib/systemd/systemd	--	gen_context(system_u:object_r:init_exec_t,s0)
 
-ifdef(`distro_gentoo', `
 /lib/rc/init\.d(/.*)?		gen_context(system_u:object_r:initrc_state_t,s0)
-')
 
 #
 # /sbin
@@ -35,9 +31,7 @@ ifdef(`distro_gentoo', `
 # because nowadays, /sbin/init is often a symlink to /sbin/upstart
 /sbin/upstart		--	gen_context(system_u:object_r:init_exec_t,s0)
 
-ifdef(`distro_gentoo', `
 /sbin/rc		--	gen_context(system_u:object_r:rc_exec_t,s0)
-')
 
 #
 # /usr
@@ -64,25 +58,9 @@ ifdef(`distro_gentoo', `
 /var/run/setmixer_flag	--	gen_context(system_u:object_r:initrc_var_run_t,s0)
 /var/run/systemd(/.*)?		gen_context(system_u:object_r:init_var_run_t,s0)
 
-ifdef(`distro_debian',`
-/var/run/hotkey-setup	--	gen_context(system_u:object_r:initrc_var_run_t,s0)
-/var/run/kdm/.*		--	gen_context(system_u:object_r:initrc_var_run_t,s0)
-')
-
-ifdef(`distro_gentoo', `
 /var/lib/init\.d(/.*)?		gen_context(system_u:object_r:initrc_state_t,s0)
 /var/run/svscan\.pid	--	gen_context(system_u:object_r:initrc_var_run_t,s0)
-')
 
-ifdef(`distro_suse', `
-/var/run/bootsplashctl	-p	gen_context(system_u:object_r:initrc_var_run_t,s0)
-/var/run/keymap		--	gen_context(system_u:object_r:initrc_var_run_t,s0)
-/var/run/numlock-on	--	gen_context(system_u:object_r:initrc_var_run_t,s0)
-/var/run/setleds-on	--	gen_context(system_u:object_r:initrc_var_run_t,s0)
-/var/run/sysconfig(/.*)?	gen_context(system_u:object_r:initrc_var_run_t,s0)
-')
-
-ifdef(`distro_gentoo',`
 # 
 # /lib
 #
@@ -100,4 +78,3 @@ ifdef(`distro_gentoo',`
 /var/lib/ip6?tables(/.*)?		gen_context(system_u:object_r:initrc_tmp_t,s0)
 
 /var/run/openrc(/.*)?		gen_context(system_u:object_r:initrc_state_t,s0)
-')

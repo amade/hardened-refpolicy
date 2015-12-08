@@ -168,12 +168,6 @@ mls_process_set_level(inetd_t)
 userdom_dontaudit_use_unpriv_user_fds(inetd_t)
 userdom_dontaudit_search_user_home_dirs(inetd_t)
 
-ifdef(`distro_redhat',`
-	optional_policy(`
-		unconfined_domain(inetd_t)
-	')
-')
-
 ifdef(`enable_mls',`
 	corenet_tcp_recvfrom_netlabel(inetd_t)
 	corenet_udp_recvfrom_netlabel(inetd_t)

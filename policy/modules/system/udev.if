@@ -393,8 +393,6 @@ interface(`udev_generic_pid_filetrans_run_dirs',`
 	refpolicywarn(`$0($*) has been deprecated.')
 ')
 
-# Gentoo specific but cannot add it within an ifdef distro_gentoo
-
 #########################################
 ## <summary>
 ##	Write in /var/run/udev with the udev_rules_t (udev rules) file type

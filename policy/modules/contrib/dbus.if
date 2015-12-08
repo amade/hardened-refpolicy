@@ -89,10 +89,8 @@ template(`dbus_role_template',`
 		dontaudit $3 $1_dbusd_t:netlink_selinux_socket { read write };
 	')
 
-	ifdef(`distro_gentoo',`
-		optional_policy(`
-			xdg_read_data_home_files($1_dbusd_t)
-		')
+	optional_policy(`
+		xdg_read_data_home_files($1_dbusd_t)
 	')
 ')
 
@@ -127,10 +125,8 @@ interface(`dbus_system_bus_client',`
 
 	dbus_read_config($1)
 
-	ifdef(`distro_gentoo',`
-		# The /var/lib/dbus/machine-id file is a link to /etc/machine-id
-		read_lnk_files_pattern($1, system_dbusd_var_lib_t, system_dbusd_var_lib_t)
-	')
+	# The /var/lib/dbus/machine-id file is a link to /etc/machine-id
+	read_lnk_files_pattern($1, system_dbusd_var_lib_t, system_dbusd_var_lib_t)
 ')
 
 #######################################

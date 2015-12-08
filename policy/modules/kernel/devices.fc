@@ -115,9 +115,6 @@
 /dev/usb.+		-c	gen_context(system_u:object_r:usb_device_t,s0)
 /dev/usblp.*		-c	gen_context(system_u:object_r:printer_device_t,s0)
 /dev/usbmon.+		-c	gen_context(system_u:object_r:usbmon_device_t,s0)
-ifdef(`distro_suse', `
-/dev/usbscanner		-c	gen_context(system_u:object_r:scanner_device_t,s0)
-')
 /dev/vhost-net		-c	gen_context(system_u:object_r:vhost_device_t,s0)
 /dev/vbi.*		-c	gen_context(system_u:object_r:v4l_device_t,s0)
 /dev/vbox.*		-c	gen_context(system_u:object_r:xserver_misc_device_t,s0)
@@ -182,14 +179,6 @@ ifdef(`distro_suse', `
 /dev/xen/gntdev		-c	gen_context(system_u:object_r:xen_device_t,s0)
 /dev/xen/gntalloc	-c	gen_context(system_u:object_r:xen_device_t,s0)
 
-ifdef(`distro_debian',`
-# this is a static /dev dir "backup mount"
-# if you want to disable udev, you'll have to boot permissive and relabel!
-/dev/\.static		-d	gen_context(system_u:object_r:device_t,s0)
-/dev/\.static/dev	-d	gen_context(system_u:object_r:device_t,s0)
-/dev/\.static/dev/(.*)?		<<none>>
-')
-
 /etc/udev/devices	-d	gen_context(system_u:object_r:device_t,s0)
 
 # used by init scripts to initally populate udev /dev
@@ -201,10 +190,3 @@ ifdef(`distro_debian',`
 /sys(/.*)?			gen_context(system_u:object_r:sysfs_t,s0)
 /sys/devices/system/cpu/online	--	gen_context(system_u:object_r:cpu_online_t,s0)
 
-ifdef(`distro_redhat',`
-# originally from named.fc
-/var/named/chroot/dev	-d	gen_context(system_u:object_r:device_t,s0)
-/var/named/chroot/dev/null -c	gen_context(system_u:object_r:null_device_t,s0)
-/var/named/chroot/dev/random -c	gen_context(system_u:object_r:random_device_t,s0)
-/var/named/chroot/dev/zero -c	gen_context(system_u:object_r:zero_device_t,s0)
-')

@@ -179,10 +179,6 @@ seutil_dontaudit_search_config(rpcd_t)
 
 userdom_signal_all_users(rpcd_t)
 
-ifdef(`distro_debian',`
-	term_dontaudit_use_unallocated_ttys(rpcd_t)
-')
-
 optional_policy(`
 	automount_signal(rpcd_t)
 	automount_dontaudit_write_pipes(rpcd_t)
@@ -244,9 +240,7 @@ storage_raw_read_removable_device(nfsd_t)
 
 miscfiles_read_public_files(nfsd_t)
 
-ifdef(`distro_gentoo',`
-	allow nfsd_t self:udp_socket listen;
-')
+allow nfsd_t self:udp_socket listen;
 
 tunable_policy(`allow_nfsd_anon_write',`
 	miscfiles_manage_public_files(nfsd_t)

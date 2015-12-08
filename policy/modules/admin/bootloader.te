@@ -133,45 +133,6 @@ seutil_dontaudit_search_config(bootloader_t)
 userdom_use_user_terminals(bootloader_t)
 userdom_dontaudit_search_user_home_dirs(bootloader_t)
 
-ifdef(`distro_debian',`
-	allow bootloader_t bootloader_tmp_t:{ dir file } { relabelfrom relabelto };
-	fs_list_tmpfs(bootloader_t)
-
-	files_relabel_kernel_modules(bootloader_t)
-	files_relabelfrom_boot_files(bootloader_t)
-	files_delete_kernel_modules(bootloader_t)
-	files_relabelto_usr_files(bootloader_t)
-	files_search_var_lib(bootloader_t)
-	# for /usr/share/initrd-tools/scripts
-	files_exec_usr_files(bootloader_t)
-
-	fstools_manage_entry_files(bootloader_t)
-	fstools_relabelto_entry_files(bootloader_t)
-
-	libs_relabelto_lib_files(bootloader_t)
-')
-
-ifdef(`distro_redhat',`
-	# for memlock
-	allow bootloader_t self:capability ipc_lock;
-
-	allow bootloader_t boot_runtime_t:file { read_file_perms delete_file_perms };
-
-	# new file system defaults to unlabeled, granting unlabeled access is still bad.
-	kernel_manage_unlabeled_dirs(bootloader_t)
-	kernel_manage_unlabeled_files(bootloader_t)
-	kernel_manage_unlabeled_symlinks(bootloader_t)
-	kernel_manage_unlabeled_blk_files(bootloader_t)
-	kernel_manage_unlabeled_chr_files(bootloader_t)
-
-	# for mke2fs
-	mount_run(bootloader_t, bootloader_roles)
-
-	optional_policy(`
-		unconfined_domain(bootloader_t)
-	')
-')
-
 optional_policy(`
 	fstools_exec(bootloader_t)
 ')
@@ -209,7 +170,5 @@ optional_policy(`
 	rpm_rw_pipes(bootloader_t)
 ')
 
-ifdef(`distro_gentoo',`
-	# Fix bug #537652 - grub2-mkconfig has search rights needed on current dir (usually user home dir)
-	userdom_search_user_home_dirs(bootloader_t)
-')
+# Fix bug #537652 - grub2-mkconfig has search rights needed on current dir (usually user home dir)
+userdom_search_user_home_dirs(bootloader_t)

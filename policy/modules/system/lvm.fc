@@ -6,9 +6,7 @@
 #
 # /bin
 #
-ifdef(`distro_gentoo',`
 /bin/cryptsetup		--	gen_context(system_u:object_r:lvm_exec_t,s0)
-')
 
 #
 # /dev
@@ -106,11 +104,9 @@ ifdef(`distro_gentoo',`
 /var/run/multipathd\.sock -s	gen_context(system_u:object_r:lvm_var_run_t,s0)
 /var/run/dmevent.*		gen_context(system_u:object_r:lvm_var_run_t,s0)
 
-ifdef(`distro_gentoo',`
 # Bug 529430 comment 7
 /sbin/lvmetad		--	gen_context(system_u:object_r:lvm_exec_t,s0)
 /var/run/lvm(/.*)?		gen_context(system_u:object_r:lvm_var_run_t,s0)
 
 # Bug 529430 comment 8
 /sbin/dmeventd		--	gen_context(system_u:object_r:lvm_exec_t,s0)
-')

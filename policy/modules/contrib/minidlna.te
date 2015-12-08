@@ -101,7 +101,6 @@ tunable_policy(`minidlna_read_generic_user_content',`
 	userdom_dontaudit_read_user_tmp_files(minidlna_t)
 ')
 
-ifdef(`distro_gentoo',`
 
 ## <desc>
 ##	<p>
@@ -127,4 +126,3 @@ gen_tunable(minidlna_read_xdg_media_content, false)
 		xdg_read_pictures_home(minidlna_t)
 		xdg_read_videos_home(minidlna_t)
 	')
-')

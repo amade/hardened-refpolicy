@@ -134,12 +134,6 @@ userdom_use_unpriv_users_fds(local_login_t)
 userdom_sigchld_all_users(local_login_t)
 userdom_create_all_users_keys(local_login_t)
 
-ifdef(`distro_ubuntu',`
-	optional_policy(`
-		unconfined_domain(local_login_t)
-	')
-')
-
 tunable_policy(`console_login',`
 	# Able to relabel /dev/console to user tty types.
 	term_relabel_console(local_login_t)
@@ -239,10 +233,6 @@ userdom_use_user_ptys(sulogin_t)
 
 sysadm_shell_domtrans(sulogin_t)
 
-# suse and debian do not use pam with sulogin...
-ifdef(`distro_suse', `define(`sulogin_no_pam')')
-ifdef(`distro_debian', `define(`sulogin_no_pam')')
-
 ifdef(`sulogin_no_pam', `
 	allow sulogin_t self:capability sys_tty_config;
 	init_getpgid(sulogin_t)
@@ -264,11 +254,8 @@ optional_policy(`
 	nscd_use(sulogin_t)
 ')
 
-ifdef(`distro_gentoo',`
-
 # Enable polyinstantiation of directories
 tunable_policy(`allow_polyinstantiation',`
 	# Execute /etc/security/namespace.init
 	corecmd_exec_bin(local_login_t)
-')
 ')

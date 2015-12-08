@@ -1,9 +1,7 @@
 #
 # /emul
 #
-ifdef(`distro_gentoo',`
 /emul/linux/x86/usr/(X11R6/)?lib/X11/locale(/.*)? gen_context(system_u:object_r:locale_t,s0)
-')
 
 #
 # /etc
@@ -16,14 +14,6 @@ ifdef(`distro_gentoo',`
 /etc/ssl/certs/(.*)?	--	gen_context(system_u:object_r:cert_t,s0)
 /etc/ssl/private/(.*)?	--	gen_context(system_u:object_r:cert_t,s0)
 /etc/timezone		--	gen_context(system_u:object_r:locale_t,s0)
-
-ifdef(`distro_debian',`
-/etc/locale.alias	--	gen_context(system_u:object_r:locale_t,s0)
-')
-
-ifdef(`distro_redhat',`
-/etc/sysconfig/clock	--	gen_context(system_u:object_r:locale_t,s0)
-')
 
 #
 # /opt
@@ -69,13 +59,7 @@ ifdef(`distro_redhat',`
 
 /usr/X11R6/man(/.*)?		gen_context(system_u:object_r:man_t,s0)
 
-ifdef(`distro_gentoo',`
 /usr/share/misc/(pci|usb)\.ids -- gen_context(system_u:object_r:hwdata_t,s0)
-')
-
-ifdef(`distro_redhat',`
-/usr/share/hwdata(/.*)?		gen_context(system_u:object_r:hwdata_t,s0)
-')
 
 #
 # /var
@@ -93,18 +77,6 @@ ifdef(`distro_redhat',`
 /var/spool/abrt-upload(/.*)?	gen_context(system_u:object_r:public_content_rw_t,s0)
 /var/spool/texmf(/.*)?		gen_context(system_u:object_r:tetex_data_t,s0)
 
-ifdef(`distro_debian',`
-/var/lib/msttcorefonts(/.*)?	gen_context(system_u:object_r:fonts_t,s0)
-/var/lib/usbutils(/.*)?		gen_context(system_u:object_r:hwdata_t,s0)
-')
-
-ifdef(`distro_redhat',`
-/var/empty/sshd/etc/localtime -- gen_context(system_u:object_r:locale_t,s0)
-/var/spool/postfix/etc/localtime -- gen_context(system_u:object_r:locale_t,s0)
-')
-
 HOME_DIR/.pki(/.*)?		gen_context(system_u:object_r:cert_home_t)
 
-ifdef(`distro_gentoo',`
 /etc/fonts(/.*)?	gen_context(system_u:object_r:fonts_t,s0)
-')

@@ -89,15 +89,13 @@ seutil_exec_setfiles(tmpfiles_t)
 seutil_libselinux_linked(tmpfiles_t)
 seutil_read_file_contexts(tmpfiles_t)
 
-ifdef(`distro_gentoo',`
-	dev_create_generic_dirs(tmpfiles_t)
-	# Early at boot, access /dev/console and /dev/tty which is device_t due to kernel-provided devtmpfs 
-	dev_rw_generic_chr_files(tmpfiles_t)
-	dev_create_generic_chr_files(tmpfiles_t)
-	dev_create_generic_blk_files(tmpfiles_t)
+dev_create_generic_dirs(tmpfiles_t)
+# Early at boot, access /dev/console and /dev/tty which is device_t due to kernel-provided devtmpfs 
+dev_rw_generic_chr_files(tmpfiles_t)
+dev_create_generic_chr_files(tmpfiles_t)
+dev_create_generic_blk_files(tmpfiles_t)
 
-	init_relabelto_script_state(tmpfiles_t)
-')
+init_relabelto_script_state(tmpfiles_t)
 
 tunable_policy(`tmpfiles_manage_all_non_security',`
 	files_manage_all_non_security_file_types(tmpfiles_t)

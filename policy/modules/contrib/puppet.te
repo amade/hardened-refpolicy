@@ -343,32 +343,31 @@ optional_policy(`
 	rpm_read_db(puppetmaster_t)
 ')
 
-ifdef(`distro_gentoo',`
-	##########################################
-	#
-	# Puppet master policy
-	#
+##########################################
+#
+# Puppet master policy
+#
 
-	rw_files_pattern(puppetmaster_t, puppet_log_t, puppet_log_t)
+rw_files_pattern(puppetmaster_t, puppet_log_t, puppet_log_t)
 
-	manage_files_pattern(puppetmaster_t, puppet_var_run_t, puppet_var_run_t)
+manage_files_pattern(puppetmaster_t, puppet_var_run_t, puppet_var_run_t)
 
-	optional_policy(`
-		usermanage_check_exec_passwd(puppetmaster_t)
-		usermanage_check_exec_useradd(puppetmaster_t)
-	')
+optional_policy(`
+	usermanage_check_exec_passwd(puppetmaster_t)
+	usermanage_check_exec_useradd(puppetmaster_t)
+')
 
-	###########################################
-	#
-	# Puppet client policy
-	#
-	corenet_tcp_bind_generic_node(puppet_t)
+###########################################
+#
+# Puppet client policy
+#
+corenet_tcp_bind_generic_node(puppet_t)
 
-	corenet_sendrecv_puppetclient_server_packets(puppet_t)
-	corenet_tcp_bind_puppetclient_port(puppet_t)
-	corenet_tcp_sendrecv_puppetclient_port(puppet_t)
+corenet_sendrecv_puppetclient_server_packets(puppet_t)
+corenet_tcp_bind_puppetclient_port(puppet_t)
+corenet_tcp_sendrecv_puppetclient_port(puppet_t)
 
-	usermanage_domtrans_passwd(puppet_t)
+usermanage_domtrans_passwd(puppet_t)
 
 	tunable_policy(`puppet_manage_all_files',`
 		# We should use files_relabel_all_files here, but it calls
@@ -378,32 +377,32 @@ ifdef(`distro_gentoo',`
 		# the policy configuration stuff and hope users do that through Portage
 		
 		gen_require(`
-			attribute file_type;
-			attribute security_file_type;
-			type policy_config_t;
-		')
+		attribute file_type;
+		attribute security_file_type;
+		type policy_config_t;
+	')
 	
-		allow puppet_t { file_type -policy_config_t -security_file_type }:dir list_dir_perms;
-		relabel_dirs_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
-		relabel_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
-		relabel_lnk_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
-		relabel_fifo_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
-		relabel_sock_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
-		# this is only relabelfrom since there should be no
-		# device nodes with file types.
-		relabelfrom_blk_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
-		relabelfrom_chr_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
-	')
-
-	optional_policy(`
-		dmidecode_domtrans(puppet_t)
-	')
-
-	optional_policy(`
-		init_exec_rc(puppet_t)
-		portage_read_cache(puppet_t)
-		portage_read_config(puppet_t)
-		portage_read_ebuild(puppet_t)
-		portage_run(puppet_t, system_r)
-	')
+	allow puppet_t { file_type -policy_config_t -security_file_type }:dir list_dir_perms;
+	relabel_dirs_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
+	relabel_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
+	relabel_lnk_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
+	relabel_fifo_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
+	relabel_sock_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
+	# this is only relabelfrom since there should be no
+	# device nodes with file types.
+	relabelfrom_blk_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
+	relabelfrom_chr_files_pattern(puppet_t, { file_type -policy_config_t -security_file_type }, { file_type -policy_config_t -security_file_type })
 ')
+
+optional_policy(`
+	dmidecode_domtrans(puppet_t)
+')
+
+optional_policy(`
+	init_exec_rc(puppet_t)
+	portage_read_cache(puppet_t)
+	portage_read_config(puppet_t)
+	portage_read_ebuild(puppet_t)
+	portage_run(puppet_t, system_r)
+')
+

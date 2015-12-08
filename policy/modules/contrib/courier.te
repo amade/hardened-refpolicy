@@ -191,12 +191,10 @@ optional_policy(`
 	cron_system_entry(courier_sqwebmail_t, courier_sqwebmail_exec_t)
 ')
 
-ifdef(`distro_gentoo',`
-	########################################
-	#
-	# Courier tcpd daemon policy
-	#
+########################################
+#
+# Courier tcpd daemon policy
+#
 
-	# Startup of courier-imapd creates /var/run/imapd.pid.lock and imapd.lock (bug 534030)
-	files_pid_filetrans(courier_tcpd_t, courier_var_run_t, file)
-')
+# Startup of courier-imapd creates /var/run/imapd.pid.lock and imapd.lock (bug 534030)
+files_pid_filetrans(courier_tcpd_t, courier_var_run_t, file)

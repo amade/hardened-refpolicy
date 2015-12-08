@@ -41,11 +41,9 @@ files_type(lib_t)
 type textrel_shlib_t alias texrel_shlib_t;
 files_type(textrel_shlib_t)
 
-ifdef(`distro_gentoo',`
-	# openrc unfortunately mounts a tmpfs
-	# at /lib/rc/
-	files_mountpoint(lib_t)
-')
+# openrc unfortunately mounts a tmpfs
+# at /lib/rc/
+files_mountpoint(lib_t)
 
 optional_policy(`
 	postgresql_loadable_module(lib_t)
@@ -97,21 +95,13 @@ logging_send_syslog_msg(ldconfig_t)
 userdom_use_user_terminals(ldconfig_t)
 userdom_use_all_users_fds(ldconfig_t)
 
-ifdef(`distro_ubuntu',`
-	optional_policy(`
-		unconfined_domain(ldconfig_t)
-	')
-')
-
 ifdef(`hide_broken_symptoms',`
-	ifdef(`distro_gentoo',`
-		# leaked fds from portage
-		files_dontaudit_rw_var_files(ldconfig_t)
+	# leaked fds from portage
+	files_dontaudit_rw_var_files(ldconfig_t)
 
-		optional_policy(`
-			portage_dontaudit_search_tmp(ldconfig_t)
-			portage_dontaudit_rw_tmp_files(ldconfig_t)
-		')
+	optional_policy(`
+		portage_dontaudit_search_tmp(ldconfig_t)
+		portage_dontaudit_rw_tmp_files(ldconfig_t)
 	')
 
 	optional_policy(`

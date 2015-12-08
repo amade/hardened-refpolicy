@@ -4,11 +4,9 @@
 /etc/modprobe\.conf.*	--	gen_context(system_u:object_r:modules_conf_t,s0)
 /etc/modprobe\.d(/.*)?		gen_context(system_u:object_r:modules_conf_t,s0)
 
-ifdef(`distro_gentoo',`
 # gentoo init scripts still manage this file
 # even if devfs is off
 /etc/modprobe.devfs.*	--	gen_context(system_u:object_r:modules_conf_t,s0)
-')
 
 /lib/modules/[^/]+/modules\..+ -- gen_context(system_u:object_r:modules_dep_t,s0)
 

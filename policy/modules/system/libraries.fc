@@ -1,28 +1,9 @@
 #
 # /emul
 #
-ifdef(`distro_debian',`
-/emul/ia32-linux/usr(/.*)?/lib(/.*)?		gen_context(system_u:object_r:lib_t,s0)
-/emul/ia32-linux/usr(/.*)?/lib(/.*)?/ld-[^/]*\.so(\.[^/]*)* gen_context(system_u:object_r:ld_so_t,s0)
-/emul/ia32-linux/lib(/.*)?			gen_context(system_u:object_r:lib_t,s0)
-/emul/ia32-linux/lib(/.*)?/ld-[^/]*\.so(\.[^/]*)* -- gen_context(system_u:object_r:ld_so_t,s0)
-')
-
-ifdef(`distro_gentoo',`
 /emul/linux/x86/usr(/.*)?/lib(/.*)?		gen_context(system_u:object_r:lib_t,s0)
 /emul/linux/x86/lib(/.*)?			gen_context(system_u:object_r:lib_t,s0)
 /emul/linux/x86/lib(/.*)?/ld-[^/]*\.so(\.[^/]*)* -- gen_context(system_u:object_r:ld_so_t,s0)
-')
-
-ifdef(`distro_redhat',`
-/emul/ia32-linux/usr(/.*)?/lib(/.*)?		gen_context(system_u:object_r:lib_t,s0)
-/emul/ia32-linux/usr(/.*)?/java/.+\.so(\.[^/]*)* -- gen_context(system_u:object_r:lib_t,s0)
-/emul/ia32-linux/usr(/.*)?/java/.*\.jar	--	gen_context(system_u:object_r:lib_t,s0)
-/emul/ia32-linux/usr(/.*)?/java/.*\.jsa	--	gen_context(system_u:object_r:lib_t,s0)
-/emul/ia32-linux/usr(/.*)?/lib(/.*)?/ld-[^/]*\.so(\.[^/]*)* gen_context(system_u:object_r:ld_so_t,s0)
-/emul/ia32-linux/lib(/.*)?			gen_context(system_u:object_r:lib_t,s0)
-/emul/ia32-linux/lib(/.*)?/ld-[^/]*\.so(\.[^/]*)* -- gen_context(system_u:object_r:ld_so_t,s0)
-')
 
 #
 # /etc
@@ -58,7 +39,6 @@ ifdef(`distro_redhat',`
 
 /opt/Komodo-Edit-5/lib/python/lib/python2.6/lib-dynload/.*\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
 
-ifdef(`distro_gentoo',`
 # despite the extensions, they are actually libs
 /opt/Acrobat[5-9]/Reader/intellinux/plug_ins/.*\.api -- gen_context(system_u:object_r:lib_t,s0)
 /opt/Acrobat[5-9]/Reader/intellinux/plug_ins3d/.*\.x3d -- gen_context(system_u:object_r:lib_t,s0)
@@ -72,21 +52,6 @@ ifdef(`distro_gentoo',`
 /opt/RealPlayer/lib(/.*)?			gen_context(system_u:object_r:lib_t,s0)
 /opt/RealPlayer/mozilla(/.*)?			gen_context(system_u:object_r:lib_t,s0)
 /opt/RealPlayer/plugins(/.*)?			gen_context(system_u:object_r:lib_t,s0)
-')
-
-ifdef(`distro_redhat',`
-/opt/Adobe.*/libcurl\.so 		-- 	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/opt/Adobe(/.*?)/nppdf\.so 		-- 	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/opt/Adobe/Reader.?/Reader/intellinux/plug_ins/.*\.api -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/opt/Adobe/Reader.?/Reader/intellinux/SPPlugins/.*\.ap[il] -- gen_context(system_u:object_r:lib_t,s0)
-/opt/cisco-vpnclient/lib/libvpnapi\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/opt/cx.*/lib/wine/.+\.so		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/opt/f-secure/fspms/libexec/librapi\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/opt/ibm/java.*/jre/.+\.jar		--	gen_context(system_u:object_r:lib_t,s0)
-/opt/ibm/java.*/jre/.+\.so(\.[^/]*)*	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/opt/ibm/java.*/jre/bin/.+\.so(\.[^/]*)* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/opt/netbeans(.*/)?jdk.*/linux/.+\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-')
 
 #
 # /sbin
@@ -110,10 +75,6 @@ ifdef(`distro_redhat',`
 /usr/(.*/)?lib64(/.*)?/ld-[^/]*\.so(\.[^/]*)* gen_context(system_u:object_r:ld_so_t,s0)
 
 /usr/(.*/)?nvidia/.+\.so(\..*)?		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-ifdef(`distro_debian',`
-/usr/(.*/)?dh-python/dh_pypy		--	gen_context(system_u:object_r:lib_t,s0)
-')
 
 /usr/lib/altivec/libavcodec\.so(\.[^/]*)* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/lib/cedega/.+\.so(\.[^/]*)*	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
@@ -163,133 +124,7 @@ ifdef(`distro_debian',`
 /usr/lib/xorg/modules/extensions/libglx\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
 /usr/x11R6/lib/modules/extensions/libglx\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
 
-ifdef(`distro_debian',`
 /usr/lib				-l	gen_context(system_u:object_r:lib_t,s0)
-')
-
-ifdef(`distro_gentoo',`
-/usr/lib				-l	gen_context(system_u:object_r:lib_t,s0)
-')
-
-ifdef(`distro_redhat',`
-/usr/share/rhn/rhn_applet/eggtrayiconmodule\.so -- gen_context(system_u:object_r:lib_t,s0)
-
-# The following are libraries with text relocations in need of execmod permissions
-# Some of them should be fixed and removed from this list
-
-# Fedora Core packages: gstreamer-plugins, compat-libstdc++, Glide3, libdv
-# 	HelixPlayer, SDL, xorg-x11, xorg-x11-libs, Hermes, valgrind, openoffice.org-libs, httpd - php
-HOME_DIR/.*/plugins/nppdf\.so.* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/allegro/(.*/)?alleg-vga\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/firefox-[^/]*/extensions(/.*)?/libqfaservices.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/firefox-[^/]*/plugins/nppdf.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/firefox/plugins/libractrl\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libFLAC\.so.*			--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libfglrx_gamma\.so.* 		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/mozilla/plugins/nppdf\.so 	-- 	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/mozilla/plugins/libvlcplugin\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/nx/libXcomp\.so.*		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/nx/libjpeg\.so.* 		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/VBoxVMM\.so			--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-/usr/lib/libstdc\+\+\.so\.2\.7\.2\.8 --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libg\+\+\.so\.2\.7\.2\.8	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libgpac\.so.* 		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libglide3\.so.* 		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libglide3-v[0-9]*\.so.* 	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/helix/plugins/[^/]*\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/helix/codecs/[^/]*\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/X11R6/lib/libfglrx_gamma\.so.* 	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libHermes\.so.*		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/valgrind/hp2ps		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/valgrind/stage2		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/valgrind/vg.*\.so		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program/libicudata\.so.* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program/libsts645li\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program/libvclplug_gen645li\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program/libwrp645li\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program/libswd680li\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program/librecentfile\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program/libsvx680li\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program/libcomphelp4gcc3\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program/libsoffice\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/(.*/)?pcsc/drivers(/.*)?/lib(cm2020|cm4000|SCR24x)\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-# Fedora Extras packages: ladspa, imlib2, ocaml
-/usr/lib/ladspa/analogue_osc_1416\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/bandpass_a_iir_1893\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/bandpass_iir_1892\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/butterworth_1902\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/fm_osc_1415\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/gsm_1215\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/gverb_1216\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/hermes_filter_1200\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/highpass_iir_1890\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/lowpass_iir_1891\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/notch_iir_1894\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/pitch_scale_1193\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/pitch_scale_1194\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/sc1_1425\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/sc2_1426\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/sc3_1427\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/sc4_1882\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ladspa/se4_1883\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/sane/libsane-epkowa\.so.* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/ocaml/stublibs/dllnums\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-# Livna.org packages: xmms-mp3, ffmpeg, xvidcore, xine-lib, gsm, lame
-/usr/lib.*/libmpg123\.so(\.[^/]*)* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/(/.*)?/libmpg123\.so(\.[^/]*)* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/codecs/drv[1-9c]\.so(\.[^/]*)* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-HOME_DIR/.*/plugins/nppdf\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-HOME_DIR/.mozilla/plugins/nprhapengine\.so.* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/nprhapengine\.so.*	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/local/(.*/)?nprhapengine\.so.* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-# Jai, Sun Microsystems (Jpackage SPRM)
-/usr/lib/libmlib_jai\.so		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libdivxdecore\.so\.0	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/libdivxencore\.so\.0	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-/usr/lib/libdvdcss\.so.*		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-/usr/lib/python2.4/site-packages/M2Crypto/__m2crypto\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-# vmware
-/usr/lib/vmware/lib(/.*)?/libgdk-x11-.*\.so.* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/vmware/lib(/.*)?/HConfig\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/vmware/(.*/)?VmPerl\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/vmware/lib(/.*)?/libvmware-gksu.*\.so.* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-/usr/lib/(virtualbox(-ose)?/)?(components/)?VBox.*\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/virtualbox/.*\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-# Java, Sun Microsystems (JPackage SRPM)
-/usr/(.*/)?jre.*/.*\.so(\.[^/]*)* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/(.*/)?jre.*/.*\.so(\.[^/]*)* --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-/usr/(local/)?Adobe/(.*/)?intellinux/nppdf\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/(local/)?Adobe/(.*/)?intellinux/sidecars/* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-/usr/(local/)?acroread/(.*/)?intellinux/nppdf\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/(local/)?Adobe/(.*/)?lib/[^/]*\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/(local/)?acroread/(.*/)?lib/[^/]*\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/(local/)?Adobe/.*\.api		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/xchat/plugins/systray\.so --	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/(local/)?matlab.*/bin/glnx86/libmwlapack\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/(local/)?matlab.*/bin/glnx86/(libmw(lapack|mathutil|services)|lapack|libmkl)\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/(local/)?matlab.*/sys/os/glnx86/libtermcap\.so -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-/usr/(.*/)?intellinux/SPPlugins/ADMPlugin\.apl -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-
-/usr/lib/acroread/(.*/)?sidecars/*	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/acroread/(.*/)?nppdf\.so	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/acroread/(.*/)?lib/[^/]*\.so(\.[^/]*)* -- gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/acroread/.+\.api		--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/acroread/(.*/)?ADMPlugin\.apl	--	gen_context(system_u:object_r:textrel_shlib_t,s0)
-/usr/lib/.*/program(/.*)?\.so			gen_context(system_u:object_r:lib_t,s0)
-') dnl end distro_redhat
 
 #
 # /var
@@ -302,10 +137,6 @@ HOME_DIR/.mozilla/plugins/nprhapengine\.so.* --	gen_context(system_u:object_r:te
 /var/lib/spamassassin/compiled/.*\.so.*	--	gen_context(system_u:object_r:lib_t,s0)
 
 /var/mailman/pythonlib(/.*)?/.+\.so(\..*)? --	gen_context(system_u:object_r:lib_t,s0)
-
-ifdef(`distro_suse',`
-/var/lib/samba/bin/.+\.so(\.[^/]*)*	-l	gen_context(system_u:object_r:lib_t,s0)
-')
 
 /var/spool/postfix/lib(/.*)? 		gen_context(system_u:object_r:lib_t,s0)
 /var/spool/postfix/usr(/.*)?			gen_context(system_u:object_r:lib_t,s0)

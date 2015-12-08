@@ -140,7 +140,6 @@ optional_policy(`
 	telepathy_mission_control_read_state(gkeyringd_domain)
 ')
 
-ifdef(`distro_gentoo',`
 	type gnome_xdg_cache_home_t;
 	type gnome_xdg_config_t; # Fase out
 	type gnome_xdg_config_home_t;
@@ -188,4 +187,3 @@ ifdef(`distro_gentoo',`
 
 	allow gconfd_t gnome_xdg_data_home_t:file manage_file_perms;
 	manage_dirs_pattern(gconfd_t, gnome_xdg_data_home_t, gnome_xdg_data_home_t)
-')

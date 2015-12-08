@@ -612,8 +612,6 @@ interface(`mozilla_home_filetrans_plugin_home',`
 	userdom_user_home_dir_filetrans($1, mozilla_plugin_home_t, $2, $3)
 ')
 
-# This is gentoo specific but cannot use ifdef distro_gentoo
-
 ########################################
 ## <summary>
 ##	Do not audit use of mozilla file descriptors
