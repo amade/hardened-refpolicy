@@ -1,0 +1,101 @@
+policy_module(claws, 1.0.0)
+
+########################################
+#
+# Declarations
+#
+
+attribute_role claws_roles;
+
+type claws_t;
+type claws_exec_t;
+typealias claws_t alias { user_claws_t staff_claws_t sysadm_claws_t };
+typealias claws_t alias { auditadm_claws_t secadm_claws_t };
+userdom_user_application_domain(claws_t, claws_exec_t)
+role claws_roles types claws_t;
+
+type claws_home_t;
+typealias claws_home_t alias { user_claws_home_t staff_claws_home_t sysadm_claws_home_t };
+typealias claws_home_t alias { auditadm_claws_home_t secadm_claws_home_t };
+userdom_user_home_content(claws_home_t)
+
+# to access /tmp/claws-mail-$UID
+type claws_tmp_t;
+files_tmp_file(claws_tmp_t)
+allow claws_t claws_tmp_t:sock_file { create unlink };
+allow claws_t claws_tmp_t:dir { create setattr write add_name remove_name rmdir };
+allow claws_t claws_tmp_t:file { create read write open lock unlink };
+files_tmp_filetrans(claws_t, claws_tmp_t, { file dir })
+
+type claws_etc_t; # config skeleton
+type claws_plugins_t;
+type claws_tools_t;
+
+optional_policy(`
+	wm_application_domain(claws_t, claws_exec_t)
+')
+
+########################################
+#
+# Local policy
+#
+can_exec(claws_t, claws_exec_t)
+corecmd_exec_shell(claws_t)
+corecmd_exec_bin(claws_t)
+corecmd_exec_shell(claws_t)
+
+# to access /usr/lib64/locale/locale-archive
+miscfiles_read_localization(claws_t)
+
+manage_dirs_pattern(claws_t, claws_home_t, claws_home_t)
+manage_files_pattern(claws_t, claws_home_t, claws_home_t)
+allow claws_t claws_home_t:file map;
+manage_lnk_files_pattern(claws_t, claws_home_t, claws_home_t)
+userdom_user_home_dir_filetrans(claws_t, claws_home_t, dir, ".claws-mail")
+
+files_read_etc_runtime_files(claws_t)
+files_read_usr_files(claws_t)
+
+# be quiet about trying to access pty
+term_dontaudit_getattr_pty_dirs(claws_t)
+
+#ifdef(`distro_gentoo',`
+	# allow reading /home/$USER/.local/share/mime/mime.cache
+	xdg_read_data_home_files(claws_t)
+	# allow reading /home/$USER/.config/fontconfig/fonts.conf
+	xdg_read_config_home_files(claws_t)
+	# allow fontconfig to access things there
+	xdg_read_cache_home_files(claws_t)
+#')
+
+# accessing X server stuff ...
+xserver_user_x_domain_template(claws, claws_t, claws_tmp_t)
+xserver_dontaudit_read_xdm_tmp_files(claws_t)
+xserver_dontaudit_getattr_xdm_tmp_sockets(claws_t)
+
+optional_policy(`
+	dbus_system_bus_client(claws_t)
+	dbus_all_session_bus_client(claws_t)
+
+	optional_policy(`
+		cups_dbus_chat(claws_t)
+	')
+')
+
+sysnet_dns_name_resolve(claws_t)
+
+
+allow claws_t self:udp_socket { create connect write };
+allow claws_t self:fifo_file { write read };
+
+# reads /etc/nsswitch.conf for whatever reason...
+auth_use_nsswitch(claws_t)
+
+# need to validate certificates
+miscfiles_read_all_certs(claws_t)
+
+
+corenet_tcp_connect_pop_port(claws_t)
+
+# ?
+kernel_read_vm_overcommit_sysctl(claws_t)

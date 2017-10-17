@@ -1,0 +1,11 @@
+HOME_DIR/\.claws-mail(/.*)?		gen_context(system_u:object_r:claws_home_t,s0)
+
+/etc/skel/.claws-mail		--	gen_context(system_u:object_r:claws_etc_t,s0)
+
+/tmp/claws-mail-[0-9]*			gen_context(system_u:object_r:claws_tmp_t,s0)
+
+/usr/bin/claws-mail		--	gen_context(system_u:object_r:claws_exec_t,s0)
+
+/usr/lib/claws-mail/plugins	--	gen_context(system_u:object_r:claws_plugins_t,s0)
+/usr/lib/claws-mail/tools	--	gen_context(system_u:object_r:claws_tools_t,s0)
+

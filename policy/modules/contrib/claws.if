@@ -1,0 +1,38 @@
+## <summary>claws-mail mail client.</summary>
+
+########################################
+## <summary>
+##	Role access for claws-mail
+## </summary>
+## <param name="role">
+##	<summary>
+##	Role allowed access
+##	</summary>
+## </param>
+## <param name="domain">
+##	<summary>
+##	User domain for the role
+##	</summary>
+## </param>
+#
+interface(`claws_role',`
+	gen_require(`
+		attribute_role claws_roles;
+		type claws_t, claws_exec_t, claws_home_t;
+	')
+
+	########################################
+	#
+	# Declarations
+	#
+
+	roleattribute $1 claws_roles;
+
+	########################################
+	#
+	# Policy
+	#
+
+	domtrans_pattern($2, claws_exec_t, claws_t)
+
+')
